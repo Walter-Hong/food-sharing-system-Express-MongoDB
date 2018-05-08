@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+/**
+ * 引入依赖
+ */
+
+var app = require('../app');
+var debug = require('debug')('node-webqq:server');
+var http = require('http');
+var io = require('../io');
+var sequelize = require('../models').sequelize;
+
+/**
+ * 获取并设置服务端口
+ */
+
+var port = normalizePort(process.env.PORT || '80');
+app.set('port', port);
+
+/**
+ * 创建http服务
+ */
+var server = http.createServer(app);
+
+/**
+ * 监听设置端口的所有连接
+ */
+sequelize.sync().then(function () {
+    server.listen(port);
+});
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * socket.io 监听
+ */
+io.attach(server);
+
+
+/**
+ * 输入端口转换为数字
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * 服务器错误事件监听
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // 错误消息转换
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * 服务开始监听事件监听
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
