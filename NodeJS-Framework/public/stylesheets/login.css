@@ -42,7 +42,7 @@ body {
     height: 20px;
 }
 
-.logo {
+.QQlogo {
     position: relative;
     left: 10px;
     top: 10px;
@@ -58,7 +58,7 @@ body {
     height: 80px
 }
 
-.top_xx {
+.top_q {
     position: absolute;
     left: 68px;
     top: 25px;;
@@ -271,14 +271,12 @@ li {
 }
 
 .bg_txt {
-    background: url(../images/ipt.png) no-repeat 0 0;
     border: none;
     height: 35px;
     width: 300px;
 }
 
 .bg_error {
-    background: url(../images/ipt.png) no-repeat 0 0;
     border: none;
     height: 35px;
     width: 300px;

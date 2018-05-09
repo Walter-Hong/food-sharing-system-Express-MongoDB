@@ -1,44 +1,35 @@
 #!/usr/bin/env node
 
 /**
- * 引入依赖
+ * Module dependencies.
  */
 
 var app = require('../app');
 var debug = require('debug')('node-framework:server');
 var http = require('http');
-var io = require('../io');
-var sequelize = require('../models').sequelize;
 
 /**
- * 获取并设置服务端口
+ * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
- * 创建http服务
+ * Create HTTP server.
  */
 var server = http.createServer(app);
 
 /**
- * 监听设置端口的所有连接
+ * Listen on provided port, on all network interfaces.
  */
-sequelize.sync().then(function () {
-    server.listen(port);
-});
+
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * socket.io 监听
- */
-io.attach(server);
-
-
-/**
- * 输入端口转换为数字
+ * Normalize a port into a number, string, or false.
  */
 
 function normalizePort(val) {
@@ -58,7 +49,7 @@ function normalizePort(val) {
 }
 
 /**
- * 服务器错误事件监听
+ * Event listener for HTTP server "error" event.
  */
 
 function onError(error) {
@@ -70,7 +61,7 @@ function onError(error) {
         ? 'Pipe ' + port
         : 'Port ' + port;
 
-    // 错误消息转换
+  // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
@@ -86,7 +77,7 @@ function onError(error) {
 }
 
 /**
- * 服务开始监听事件监听
+ * Event listener for HTTP server "listening" event.
  */
 
 function onListening() {

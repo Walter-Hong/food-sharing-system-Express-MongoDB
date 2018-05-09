@@ -24,7 +24,7 @@ block content_area
                 .login_wrap
                     a.btn.btn-primary(href='./login', title='login', tabindex='3') login
     .regist
-        form.reg_form(action='')
+        form.reg_form(action='/',method='post')
             .box
                 .ipt_box
                     .bg_txt.bg_focus
@@ -58,4 +58,4 @@ block content_area
                     input(type='checkbox')
                     | I agree xxx
             div
-                input#submit_input.btn.btn-Info(type='button', value='register')
+                input#submit_input.btn.btn-Info(type='submit', value='register')
