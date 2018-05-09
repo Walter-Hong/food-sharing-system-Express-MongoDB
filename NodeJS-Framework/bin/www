@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('node-webqq:server');
+var debug = require('debug')('node-framework:server');
 var http = require('http');
 var io = require('../io');
 var sequelize = require('../models').sequelize;

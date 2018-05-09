@@ -1,12 +1,11 @@
-
 /**
- * @author: walter hong
- * 注册页路由
+ *author walter 
+ *注册页路由
  */
 
 var express = require('express');
 var router = express.Router();
-
+var models = require("./models");
 
 // 2.1注册uri匹配进入到注册页面
 router.get('/register', function (req, res, next) {

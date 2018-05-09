@@ -1,0 +1,304 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0;
+}
+
+.row {
+    margin-right: 0px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #557788;
+    background-color: #ecf0f5;
+
+}
+
+.bar {
+    display: block;
+    /*1366px      */
+    height: 60px;
+    width: 100%;
+    background-color: #3c8dbc;
+}
+
+.main_left img {
+    width: 400px;
+}
+
+.input-group img {
+    width: 15px;
+    height: 20px
+}
+
+.input-group img {
+    width: 15px;
+    height: 20px;
+}
+
+.logo {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    width: 40px;
+    height: 40px
+}
+
+.keyword {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 200px;
+    height: 80px
+}
+
+.top_xx {
+    position: absolute;
+    left: 68px;
+    top: 25px;;
+    font-size: large;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.main {
+    display: block;
+    position: relative;
+
+    margin-top: 30px;
+    min-height: 550px;
+    width: 100%;
+    background-color: #ffffff;
+    /*background-image:url("");*/
+    /*background-repeat: no-repeatrepeat;*/
+    /*background:  url("") no-repeat  transparent;*/
+    /*background-size: 100% 100%;*/
+
+}
+
+/*左侧图片*/
+.main_left {
+    position: relative;
+    margin-top: 120px;
+    margin-left: 25%;
+    display: block;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    /*初始状态 透明度为0*/
+    40% {
+        opacity: 0;
+    }
+    /*过渡状态 透明度为0*/
+    100% {
+        opacity: 1;
+    }
+    /*结束状态 透明度为1*/
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.pic_down {
+    animation: fade-in;
+    animation-duration: 2s;
+    -webkit-animation: fade-in 2s;
+
+    position: relative;
+    margin-left: 34%;
+}
+
+.img_box {
+    position: relative;
+    margin: 0px;
+    padding-bottom: 100px;
+}
+
+
+.login {
+    position: relative;
+    width: 300px;
+    margin-top: 80px;
+    display: block;
+    margin-left: 20%;
+}
+
+.loginform {
+    position: relative;
+    width: 300px;
+    margin-left: 18%;
+    margin-top: 30px;
+}
+
+.loginform .input-group {
+    margin: 10px 0px 20px 0px;
+}
+
+.regist {
+    position: relative;
+    width: 300px;
+    margin-top: 0px;
+    margin-left: 18%;
+}
+
+.regist input {
+    margin: 10px 0px 10px 0px;
+}
+
+.footer {
+    position: fixed;
+    /*clear: both;*/
+    line-height: 26px;
+    text-align: center;
+    /*border-top: 1px solid #d6dfea;*/
+    left: 0;
+    right: 0;
+    bottom: 10px;
+
+}
+
+.footer a {
+    padding-right: 15px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline;
+    font-size: large;
+
+}
+
+.login_bar a:link {
+    color: rgba(96, 83, 82, 0.53);
+
+    padding: 20px;
+    text-decoration: none;
+
+}
+
+.login_bar a:hover {
+
+    color: #555555;
+
+}
+
+.login_bar a.active {
+    color: #0f88eb;
+    font-size: larger;
+
+}
+
+.login_bar a:focus {
+    outline: none;
+    color: #0f88eb;
+    font-size: larger;
+
+}
+
+.btn-Info {
+    display: block;
+    width: 300px;
+    /*圆角*/
+    border-radius: 4px;
+    background-color: #0f88eb;
+    color: #f7f7f7;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: large;
+    /*margin-top: 20px;*/
+}
+
+.checkbox {
+    font-size: small;
+}
+
+.checkbox a:link {
+    margin-left: 55%;
+}
+
+.col {
+    padding-right: 0;
+    padding-right: 0;
+}
+
+.box .info {
+    height: 20px;
+    width: 236px;
+    margin-top: -5px;
+}
+
+.box .info .tips {
+    margin-left: 6px;
+    height: 35px;
+    vertical-align: middle;
+    width: 233px;
+}
+
+.box .info .tips div {
+    padding-top: 10px;
+}
+
+.box .ok {
+    background: url(../images/ok.png) no-repeat 0 11px;
+    color: #48A309;
+    padding-left: 16px;
+}
+
+.box .tip {
+    background: none;
+    padding-left: 0;
+    color: #808080;
+}
+
+.bg_txt {
+    background: url(../images/ipt.png) no-repeat 0 0;
+    border: none;
+    height: 35px;
+    width: 300px;
+}
+
+.bg_error {
+    background: url(../images/ipt.png) no-repeat 0 0;
+    border: none;
+    height: 35px;
+    width: 300px;
+}
+
+.err_m {
+    display: none;
+    color: #FF0000;
+}
+
+.reg_main .reg_msg { background:url(../images/success.gif) no-repeat 0 3px; margin:30px 0 20px 87px; }
+.reg_main .reg_msg p { font-size:18px; line-height:32px; margin-left:70px; }
+.reg_main .reg_msg p span { color:#575757; vertical-align:middle; }
+.rember_uin { position:relative; }
+.reg_main .reg_msg .red_text { color:#D71D00; font-size:30px; margin-right:8px; vertical-align:middle; }
+.reg_main .reg_msg .login_wrap { margin-left:70px; position:relative; width:500px; }
+.reg_main .reg_msg .login_bg { background:url(../images/login_btn_m.png) repeat-x 0 0; float:left; margin-top:24px; position:relative; }
+.reg_main .reg_msg .login_btn { background:url(../images/login_btn_l.png) no-repeat 0 0; border:none; color:#FFF; display:inline-block; font-size:22px; font-weight:600; height:52px; padding:0 72px 0 20px; text-align:center; }
+.reg_main .reg_msg .login_area { background:url(../images/login_btn_r.png) no-repeat 0 0; height:52px; outline:none; padding:0 10px; position:absolute; right:0; top:0; width:31px; }
+.reg_main .reg_msg .login_btn a { color:#FFF; display:inline-block; line-height:52px; }
+.reg_main {
+    display: none;
+}

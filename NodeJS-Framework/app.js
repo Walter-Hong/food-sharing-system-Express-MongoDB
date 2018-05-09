@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //  1. 声明路由转发
-// app.use('/', register);
+app.use('/', register);
 
 
 // 捕获404事件
