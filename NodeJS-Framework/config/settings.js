@@ -1,5 +1,5 @@
 /**
- * @author walter
+ * @author walterhong
  *
  * 项目配置参数，目前仅有数据库配置
  */

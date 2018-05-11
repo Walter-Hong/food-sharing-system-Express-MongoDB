@@ -1,5 +1,6 @@
 extends login_layout
 block js_area
+    script( async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvG8QBgXV6msnzH-AtgN-ssWYJBHY5kH4&callback=initMap" )
     script(src='javascripts/register.js')
 block content_area
     .login
@@ -42,20 +43,22 @@ block content_area
             .box
                 .ipt_box
                     .bg_txt.bg_focus
-                        input.user_repass.form-control.new_txt(type='password', placeholder='repassword', name='repassword')
-                .info
-                    .tips
-                        .tip please input again
-            .box
-                .ipt_box
-                    .bg_txt.bg_focus
                         input.user_email.form-control.new_txt(type='email', placeholder='email', name='email')
                 .info
                     .tips
                         .tip please input email
+
+
             .checkbox2
                 label
                     input(type='checkbox')
                     | I agree xxx
             div
                 input#submit_input.btn.btn-Info(type='submit', value='register')
+            .box
+                .info
+                    .tips
+                        .tip test-map
+                .ipt_box
+                    .bg_txt.bg_focus
+                        input#location.form-control.new_txt(type='text', placeholder='location', name='location')
