@@ -1,0 +1,63 @@
+<% if (topic.length < 1) {%>
+<div class="default-hint">
+    <img src="/public/img/gh.png" alt="">
+    <strong>我真的不知道在这里写什么!</strong>
+</div>
+<% } %>
+<% for (var i = 0; i < topic.length; i++){ %>
+<div class="post-item">
+    <div class="post-head clearfix">
+        <a class="avatar clearfix" href="/people/<%= topic[i].author.loginname %>" target="_blank">
+            <img src="<%= topic[i].author.avatar %>" alt="" width="50" height="50">
+            <span class="name"><%= topic[i].author.loginname %></span>
+        </a>
+        <div class="user-info">
+            <a class="name" href="/people/<%= topic[i].author.loginname %>" target="_blank"><%=
+                topic[i].author.loginname %></a>
+            <p class="ell"><%= topic[i].author.description %></p>
+        </div>
+    </div>
+    <div class="content">
+        <h3 class="title content-title"><a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].title %></a>
+        </h3>
+        <a href="/topic/<%= topic[i]._id %>" target="_blank" class="picture">
+            <img class="content-picture" src="<%= topic[i].content + config.qiniu.watermark %>" alt="">
+        </a>
+    </div>
+    <div class="port">
+        <div class="bar">
+            <a href="javascript:void(0)" class="share-bn">
+                <span><i class="iconfont">&#xe86f;</i></span>
+                <ul>
+                    <li><span onclick="shareTo(<%= i  %>, 'qq' ,'<%= topic[i]._id  %>')"><em class="iconfont"></em>QQ空间</span>
+                    </li>
+                    <li><span onclick="shareTo(<%= i  %>, 'wb' ,'<%= topic[i]._id  %>')"><em class="iconfont"></em>新浪微博</span>
+                    </li>
+                    <li class="wx_code"><span><em class="iconfont"></em>微信</span><img
+                            src="http://qr.liantu.com/api.php?&amp;w=153&amp;text=<%= config.domain %>/topic/<%= topic[i]._id %>">
+                    </li>
+                </ul>
+            </a>
+            <a class="reply-button" href="javascript:void(0)" data-topic-id="<%= topic[i]._id %>">
+                <span><i class="iconfont">&#xe870;</i><%= topic[i].reply_count %></span>
+            </a>
+            <a class="like<% if (topic[i].liked === 1){ %> on<%}%>" href="javascript:void(0)"
+               liked="<%= topic[i].liked %>" data-topic-id="<%= topic[i]._id %>">
+                <span><i class="iconfont"><% if (topic[i].liked === 1){ %>&#xe60a;<%}else{%>&#xe63b;<%}%></i><em><%= topic[i].like_count %></em></span>
+            </a>
+        </div>
+    </div>
+    <div class="reply">
+        <div class="default"><i class="iconfont">&#xe61f;</i><span>加载中...</span></div>
+        <div class="reply-wrap">
+
+        </div>
+        <div class="comment clearfix">
+            <textarea class="comment-content" data-topic-id="<%= topic[i]._id %>"
+                      placeholder="大家都是文化人，有话好好说"></textarea>
+            <span class="comment-bnt">发表评论</span>
+        </div>
+    </div>
+</div>
+
+<% } %>

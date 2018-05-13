@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title><%= title %></title>
+    <title><%= title + ' ' + config.title %></title>
     <meta name="description" content="<%= config.description %>"/>
     <meta name="keywords" content="<%= config.keywords %>"/>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width">
@@ -10,50 +10,46 @@
     <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon"/>
 
     <%-
-    Loader('/public/css/index.css')
+    Loader('/public/css/user_reply_index.css')
     .css('/public/css/default.css')
     .css('/public/css/header.css')
     .css('/public/css/body.css')
-    .css('/public/css/page.css')
     .css('/public/css/reply.css')
     .css('/public/css/sidebar.css')
     .css('/public/css/rank.css')
     .css('/public/css/post_rank.css')
     .css('/public/css/community.css')
     .css('/public/css/to.css')
-    .css('/public/css/paging.css')
     .css('/public/css/footer.css')
+    .css('/public/css/user_header.css')
+    .css('/public/css/head_phone.css')
+    .css('/public/css/paging.css')
+    .css('/public/css/reply_page.css')
     .done(assets, config.static_host, config.mini_assets)
     %>
 
     <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
     <%-
-    Loader('/public/js/index.js')
-    .js('/public/js/api.js')
+    Loader('/public/js/user_reply_index.js')
     .js('/public/js/legal.js')
     .js('/public/js/main.js')
-    .js('/public/js/post.js')
+    .js('/public/js/head_phone.js')
     .js('/public/js/hint.js')
+    .js('/public/js/api.js')
     .done(assets, config.static_host, config.mini_assets)
     %>
+
 </head>
 <body>
-<%- include('./header.html', {user: user}) %>
-<%- include('./body/body.html') %>
-<%- include('./footer.html') %>
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        }
-        else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
+
+<%- include('../header.html', {user: user}) %>
+<div id="main" class="clearfix">
+    <%- include('./header.html', {header_on: 1}) %>
+    <%- include('./reply_page.html') %>
+    <%- include('../sidebar/sidebar.html') %>
+    <%- include('../body/to.html') %>
+</div>
+<%- include('../footer.html') %>
+
 </body>
 </html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title + ' ' + config.title %></title>
+    <meta name="description" content="<%= config.description %>"/>
+    <meta name="keywords" content="<%= config.keywords %>"/>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon"/>
+
+    <%-
+    Loader('/public/css/upload_index.css')
+    .css('/public/css/default.css')
+    .css('/public/css/header.css')
+    .css('/public/css/upload.css')
+    .css('/public/css/head_phone.css')
+    .css('/public/css/footer.css')
+    .done(assets, config.static_host, config.mini_assets)
+    %>
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4PhYga65tlORT5EY4P2rXV5LykbQBVTV">
+    </script>
+    <%-
+    Loader('/public/js/upload_index.js')
+    .js('/public/js/hint.js')
+    .js('/public/js/api.js')
+    .js('/public/js/head_phone.js')
+    .done(assets, config.static_host, config.mini_assets)
+    %>
+</head>
+<body>
+<%- include('../header.html', {user: user}) %>
+
+<div class="upload">
+    <div class="content">
+        <div class="up-head">
+            <i class="iconfont">&#xe616;</i>Add Listing
+        </div>
+        <div class="up-form">
+            <div class="group clearfix">
+                <p>Photo</p>
+                <form id="form-img" action="/api/post/upload" method="post" target="iframe-img"
+                      enctype="multipart/form-data">
+                    <input id="action" name="avatar" type="file">
+                    <iframe style="display: none;" id="iframe-img" name="iframe-img"></iframe>
+                    <i class="bn">+</i>
+                    <span class="hint">support format: JPEG\PNG\GIF  <br>  size limit:3MB</span>
+                </form>
+                <img src="" alt="" class="show-img" onclick="inputFile()">
+            </div>
+            <div class="group clearfix">
+                <p>Description</p>
+                <textarea id="title" placeholder="e.g. Quality,auantity,use by date"></textarea>
+                <!--<p class="hint">e.g. Quality,auantity,use by date</p>-->
+            </div>
+            <!--<div class="group clearfix">-->
+                <!--<p>Location</p>-->
+                <!--<textarea id="location" placeholder="detail address"></textarea>-->
+                <!--&lt;!&ndash;<p class="hint">detail address</p>&ndash;&gt;-->
+                <!--<div id="allmap" style="height: 234px;"></div>-->
+            <!--</div>-->
+            <div class="upload-bnt">Submit</div>
+        </div>
+
+    </div>
+    <div class="side">
+        <h2>FAQ</h2>
+        <h3>1. High quality pictures are more attractive </h3>
+    </div>
+</div>
+
+<%- include('../footer.html') %>
+<script type="text/javascript">
+
+    // 上传帖子图片
+    uploadPostImg($('#action'), $('.show-img'));
+
+    // 上传帖子
+    $('.upload-bnt').on('click', function () {
+        uploadPost($('#title').val(), $('.show-img').attr('src'))
+    });
+
+    // 点击已经上传了的图片时候弹出图片选择框
+    function inputFile() {
+        return $('#action').click();
+    }
+
+</script>
+
+<script type="text/javascript">
+    // // 百度地图API功能 尝试放在里这里！！！！最后用不了，还是舍不得删掉
+    // var map = new BMap.Map("allmap");
+    // var point = new BMap.Point(116.331398, 39.897445);
+    // map.centerAndZoom(point, 12);
+    //
+    // var geolocation = new BMap.Geolocation();
+    // geolocation.getCurrentPosition(function (r) {
+    //     if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+    //         var mk = new BMap.Marker(r.point);
+    //         map.addOverlay(mk);
+    //         map.panTo(r.point);
+    //         alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+    //         var addComp = r.addressComponents;
+    //         alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+    //     }
+    //     else {
+    //         alert('failed' + this.getStatus());
+    //     }
+    // }, {enableHighAccuracy: true})
+    //关于状态码
+    //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+    //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+    //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+    //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+    //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+    //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+    //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+    //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+    //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+</script>
+</body>
+</html>
