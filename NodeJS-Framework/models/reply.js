@@ -19,7 +19,7 @@ ReplySchema.statics.legal = function (replyData) {
         return {states: -2, hint: '评论人id为空'};
     }
     if (replyData.topic_id === undefined) {
-        return {states: -2, hint: '食物帖子id为空'};
+        return {states: -2, hint: '帖子id为空'};
     }
     return {states: 1, hint: '数据合法'};
 };

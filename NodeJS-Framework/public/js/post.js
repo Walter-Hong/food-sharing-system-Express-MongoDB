@@ -76,6 +76,7 @@ var $likeIcon   = $('.like i');
 var $likeCount  = $('.like em');
 $likeButton.on('click', function () {
 	if (!window.login_state) {
+        window.location.href = '/user/login';
 		return hint('need login first!');
 	}
 	var $This = $(this);
@@ -108,6 +109,7 @@ var $replyBnt = $('.comment-bnt');
 
 $replyBnt.on('click', function () {
 	if (!window.login_state) {
+        window.location.href = '/user/login';
 		return hint('need login first!');
 	}
 	var index = $replyBnt.index(this);
@@ -137,6 +139,7 @@ function likeReplyBind () {
 	$replyLikeBnt = $('.reply-like-btn');
 	$replyLikeBnt.off('click').on('click', function () {
 		if (!window.login_state) {
+            window.location.href = '/user/login';
 			return hint('need login first!');
 		}
 		var $This = $(this);
@@ -160,7 +163,7 @@ window.$shareImg = $('.content-picture');
 
 
 });
-// 分享食物食物帖子
+// 分享食物帖子
 function shareTo(id, type, postId){
 	var title = $shareTitle[id].innerText;
 	var img = $shareImg[id].src;

@@ -4,11 +4,11 @@ var config = require('../config');
 var async = require('async');
 
 exports.legal = Topic.legal;    // 验证数据
-exports.upload = upload;         // 上传帖子
+exports.upload = upload;         // 上传食物帖子
 exports.getNotPass = getNotPass;     // 获得没有通过审核的食物帖子
-exports.allowPass = allowPass;      // 帖子通过数量加一
-exports.notPass = notPass;        // 帖子不通过数量加一
-exports.getTopicById = getTopicById; // 通过 id 获取帖子
+exports.allowPass = allowPass;      // 食物帖子通过数量加一
+exports.notPass = notPass;        // 食物帖子不通过数量加一
+exports.getTopicById = getTopicById; // 通过 id 获取食物帖子
 
 function upload(topicData, callback) {
 
@@ -70,6 +70,9 @@ function overBound(topic) {
         var TopicData = {
             title: topic.title,
             content: topic.content,
+            location: topic.location,
+            lat: topic.lat,
+            lng: topic.lng,
             author_id: topic.author_id,
             create_date: date,
             like_count: parseInt(Math.random() * config.start_like + 1)

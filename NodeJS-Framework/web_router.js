@@ -7,11 +7,11 @@ var config  = require('./config');
 
 
 router.get('/', post.index);             // 主页
-router.get('/week', post.week);          // 每周发布食物情况
-router.get('/month', post.month);        // 每月发布食物情况
+router.get('/week', post.week);          // 周榜
+router.get('/month', post.month);        // 月榜
 router.get('/p/:page', post.index);      // 主页分页
-router.get('/week/p/:page', post.week);  // 每周发布食物情况分页
-router.get('/month/p/:page', post.week); // 每月发布食物情况分页
+router.get('/week/p/:page', post.week);  // 周榜分页
+router.get('/month/p/:page', post.week); // 月榜分页
 router.get('/post/up', post.upload);     // 上传食物帖子
 router.get('/post/pass', post.pass);     // 审核食物帖子
 router.get('/topic/:topic', post.topic); // 某个食物帖子
@@ -19,8 +19,8 @@ router.get('/topic/:topic', post.topic); // 某个食物帖子
 router.get('/user/new', user.new);       // register新用户
 router.get('/user/login', user.login);   // 站内login
 router.get('/auths/:type', auth.index);   // 第三方login
-router.get('/auth/wb', auth.wbSign);     // 微博登录可替换
-router.get('/auth/qq', auth.qqSign);     // qq登录进入可替换
+router.get('/auth/wb', auth.wbSign);     // 微博登录
+router.get('/auth/qq', auth.qqSign);     // qq登录进入
 router.get('/user/out', user.out);       // logout
 router.get('/user/edit', user.edit);     // 修改用户资料的页面
 router.get('/user/center', user.center); // 用户中心

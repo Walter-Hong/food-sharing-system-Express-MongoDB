@@ -7,7 +7,7 @@ var config = require('../config');
 
 exports.legal = Reply.legal;   // 检测数据合法
 exports.addReply = addReply;      // 增加一条评论
-exports.getReply = getReply;      // 获得帖子的评论
+exports.getReply = getReply;      // 获得食物帖子的评论
 exports.likeReply = likeReply;    // 给一条评论点赞
 exports.getReplyByUserId = getReplyByUserId; // 通过用户id获取评论
 

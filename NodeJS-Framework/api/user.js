@@ -95,12 +95,12 @@ function edit(req, res, next) {
     }
     if (data.qq) {
         if (data.qq.indexOf('qq.com') === -1) {
-            data.qq = 'https://user.qzone.qq.com/' + data.qq;//先做一个QQ空间链接做为测试，后连入facebook
+            data.qq = 'https://user.qzone.qq.com/' + data.qq;
         }
     }
     if (data.wb) {
         if (data.wb.indexOf('weibo.com') === -1) {
-            return res.json({states: -2, hint: '微博链接不是这样的吧 QAQ!'});//记得换成Twitter
+            return res.json({states: -2, hint: '微博链接不是这样的吧 QAQ!'});
         }
     }
     var token = req.session.token;

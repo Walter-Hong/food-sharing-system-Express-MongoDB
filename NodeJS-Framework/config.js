@@ -11,21 +11,21 @@ var config = {
 
 	static_host: '',    // cdn 静态文件储存域名
 
-	// 微博授权 http://open.weibo.com/ 尝试微博，因为都是做微博微信qq ，可以试着化成google
+	// 微博授权 http://open.weibo.com/
 	wb: {
 		ID: '',
 		SECRET: '',
 		CALLBACK_URI: ''
 	},
 
-	// qq授权 https://connect.qq.com/ 尝试qq，因为都是做微博微信qq
+	// qq授权 https://connect.qq.com/
 	qq: {
 		ID: '',
 		SECRET: '',
 		CALLBACK_URI: ''
 	},
 
-	// 为了这个项目想找一个图片空间（七牛还可以但是不知道sadar他们喜欢吗），帖子储存在本地的话，这里留空
+	// 七牛图片空间（不知道sardar理不理解），帖子储存在本地的话，这里留空
 	qiniu: {
 		ACCESS_KEY: '',
 		SECRET_KEY: '',
@@ -47,8 +47,8 @@ var config = {
 	// 用户密码 密匙
 	password_secret: '随便输入点啥就好了啦(字母,符号,数字)',
 
-	// 多少人同意通过审核就展示这个帖子
-	// 多少人不同意就隐藏掉这个帖子
+	// 多少人同意通过审核就展示这个食物帖子
+	// 多少人不同意就隐藏掉这个食物帖子
 	pass_count: 3,
 
 	// 发布时给1到多少区间的赞
@@ -57,7 +57,7 @@ var config = {
 	// 点赞时随机给多少区间的赞
 	like: 10,
 
-	// 一页显示多少条帖子
+	// 一页显示多少条食物帖子
 	topic_limit: 20,
 
 	// 一页显示多少评论

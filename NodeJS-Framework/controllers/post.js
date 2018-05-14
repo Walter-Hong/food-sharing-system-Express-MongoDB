@@ -4,7 +4,7 @@ var fmdb = require('../fmdb');
 var topic_passed = fmdb.topic_passed;
 
 exports.upload = upload;  // 上传食物帖子
-exports.pass = pass;    // 审核帖子
+exports.pass = pass;    // 审核食物帖子
 exports.index = index;   // 展示首页
 exports.week = week;    // 周榜
 exports.month = month;   // 月榜

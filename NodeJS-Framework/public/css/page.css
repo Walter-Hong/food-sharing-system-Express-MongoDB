@@ -10,7 +10,7 @@
     -webkit-transition: all 0.3s;
     border: 1px solid #e7eaf1;
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    box-shadow: 0 1px 3px rgba(0, 37, 55, .05);
     margin-bottom: 15px;
 }
 
@@ -30,7 +30,7 @@
     display: none;
 }
 
-.page .post-item .post-head .avatar img{
+.page .post-item .post-head .avatar img {
     display: block;
 }
 
@@ -98,9 +98,9 @@
     margin: 0 auto;
 }
 
-.page .port{
-    padding-left: 180px;
-    height: 42px;
+.page .port {
+    padding-left: 5px;
+    height: 85px;
     background: white;
 }
 
@@ -108,16 +108,16 @@
     float: right;
 }
 
-.page .port .bar a {
+.page .port a {
     float: left;
     padding: 8px 0;
 }
 
-.page .port .bar a:hover {
+.page .port a:hover {
     background-color: #eff3f5;
 }
 
-.page .port .bar a span {
+.page .port a span {
     padding: 0 40px;
     height: 25px;
     line-height: 25px;
@@ -127,69 +127,76 @@
     -webkit-transition: none;
 }
 
-.page .port .bar a:hover span {
+.page .port a:hover span {
     color: #3498DB;
 }
 
-.page .port .bar a i {
+.page .port a i {
     font-size: 24px;
     padding-right: 10px;
     vertical-align: middle;
 }
 
 /* 分享 */
-.page .port .share-bn{
-    position:relative;
-    z-index:10;
-}
-.page .port .share-bn ul{
-    display:none;
-    position:absolute;
-    border-top:0;
-    z-index:10;
-    top:40px;
-    left:-1px;
-    box-shadow:0 3px 5px rgba(0,0,0,.1);
-}
-.page .port .share-bn ul li span:hover{
-    background:#eff3f5;
-}
-.page .port .share-bn ul li span:hover em{
-    color:#3498DB;
-}
-.page .port .share-bn ul span{
-    display:block;
-    padding:0 10px;
-    width:122px;
-    height:40px;
-    line-height:40px;
-    background:white;
-    color:#808080;
-}
-.page .port .share-bn ul span em{
-    padding-right:5px;
-    font-size:24px;
-    vertical-align:middle;
-    color:#b5b5b5;
-}
-.page .port .share-bn:hover ul{
-    display:block;
-    position:absolute;
-}
-.page .port .share-bn .wx_code:hover img{
-    display:block;
-}
-.page .port .share-bn li img{
-    display:none;
-    width:153px;
-    height:153px;
-    position:absolute;
-    left:142px;
-    top:0;
-    box-shadow:0 0 5px rgba(0,0,0,.2);
-    border-top:none;
+.page .port .share-bn {
+    position: relative;
+    z-index: 10;
 }
 
+.page .port .share-bn ul {
+    display: none;
+    position: absolute;
+    border-top: 0;
+    z-index: 10;
+    top: 40px;
+    left: -1px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+}
+
+.page .port .share-bn ul li span:hover {
+    background: #eff3f5;
+}
+
+.page .port .share-bn ul li span:hover em {
+    color: #3498DB;
+}
+
+.page .port .share-bn ul span {
+    display: block;
+    padding: 0 10px;
+    width: 122px;
+    height: 40px;
+    line-height: 40px;
+    background: white;
+    color: #808080;
+}
+
+.page .port .share-bn ul span em {
+    padding-right: 5px;
+    font-size: 24px;
+    vertical-align: middle;
+    color: #b5b5b5;
+}
+
+.page .port .share-bn:hover ul {
+    display: block;
+    position: absolute;
+}
+
+.page .port .share-bn .wx_code:hover img {
+    display: block;
+}
+
+.page .port .share-bn li img {
+    display: none;
+    width: 153px;
+    height: 153px;
+    position: absolute;
+    left: 142px;
+    top: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    border-top: none;
+}
 
 /* 点赞 */
 .page .port .bar .like {
@@ -219,7 +226,7 @@
     background-color: white;
     border: 1px solid #e7eaf1;
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    box-shadow: 0 1px 3px rgba(0, 37, 55, .05);
     margin-bottom: 15px;
 }
 
@@ -283,17 +290,17 @@
     }
 }
 
-@media only screen and ( max-width:  1140px) {
+@media only screen and ( max-width: 1140px) {
     .page {
         width: 800px;
         margin: 0 auto;
         float: none;
     }
+
     .sidebar {
         display: none;
     }
 }
-
 
 @media only screen and ( max-width: 800px ) {
 
@@ -314,11 +321,11 @@
     .default-hint {
         padding: 80px 0;
     }
-    
+
     .page .port .share-bn:hover ul {
         display: none;
     }
-    
+
     .page .post-item .post-head .avatar {
         width: 100%;
         height: 36px;
@@ -366,7 +373,7 @@
         font-weight: normal;
         word-break: break-all;
         font-size: 14px;
-    }   
+    }
 
     .page .post-item .content .picture {
         display: block;
@@ -403,7 +410,7 @@
         padding: 0;
     }
 
-    .page .post-item .port .bar a span i{
+    .page .post-item .port .bar a span i {
         font-size: 20px;
     }
 
@@ -411,21 +418,24 @@
         top: -4px;
         text-shadow: none !important;
     }
+
     .page .post-item .port .bar .like span {
         padding-left: 27px;
     }
 
-    .page .port .bar a:hover {
+    .page .port a:hover {
         background-color: white;
     }
-    .page .port .bar a:active {
+
+    .page .port a:active {
         background-color: #eff3f5;
     }
 
-    .page .port .bar a:hover span {
+    .page .port a:hover span {
         color: #808080;
     }
-    .page .port .bar a:active span {
+
+    .page .port a:active span {
         color: #3498DB;
     }
 }

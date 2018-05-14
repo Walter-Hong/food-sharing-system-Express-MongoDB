@@ -1,5 +1,5 @@
-// 待审核的食物帖子都存在这里
-// 当食物帖子的同意通过人数到了指定数量时就会把数据转移到 topic_passed 数据库里
+// 待审核的帖子都存在这里
+// 当帖子的同意通过人数到了指定数量时就会把数据转移到 topic_passed 数据库里
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -8,6 +8,9 @@ var Schema = mongoose.Schema;
 var TopicSchema = new Schema({
     title: {type: String},
     content: {type: String},
+    location: {type: String},
+    lat: {type: Number, default: 0},
+    lng: {type: Number, default: 0},
     author_id: {type: Schema.ObjectId},
     create_date: {type: Date, default: Date.now},
 
@@ -15,21 +18,19 @@ var TopicSchema = new Schema({
     notpassed_count: {type: Number, default: 0} // 不同意通过的数量
 });
 
-// 验证食物帖子合法性
+// 验证帖子合法性
 TopicSchema.statics.legal = function (topic) {
-    if (!topic.title || !topic.content)
-        return {states: -1, hint: '请填写完整!'};
+    if (!topic.title)
+        return {states: -1, hint: 'need description!'};
 
-    if (topic.title.length < 5)
-        return {states: -2, hint: '5个字都挤不出来吗!'};
+    if (topic.title.length < 2)
+        return {states: -2, hint: 'description is too short!!'};
 
-    if (topic.title.length > 100)
-        return {states: -3, hint: '标题超长咯!'};
 
     if (!topic.content)
-        return {states: -4, hint: '没有选择图片!'};
+        return {states: -4, hint: 'need image!'};
 
-    return {states: 1, hint: '合法'};
+    return {states: 1, hint: 'ok'};
 };
 
 TopicSchema.index({author_id: 1});

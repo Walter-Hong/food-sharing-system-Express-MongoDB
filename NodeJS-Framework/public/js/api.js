@@ -12,9 +12,9 @@ $(window).ready(function () {
             }
             bind();
         },
-		error: function () {
-        	hint('server busy!╰(*°▽°*)╯');
-		}
+        error: function () {
+            hint('server busy!╰(*°▽°*)╯');
+        }
     });
 });
 
@@ -22,9 +22,12 @@ $(window).ready(function () {
 function bind() {
     var login = window.login_state;
 
-    // 发布食物（投稿）点击
+    // 食物投稿点击
     $('.post-up').on('click', function () {
-        if (!login) return hint('need login first！');
+        if (!login) {
+            window.location.href = '/user/login';
+            return hint('need login first！');
+        }
         window.location.href = '/post/up';
     });
 }
@@ -38,27 +41,27 @@ function uploadPostImg(input, img) {
     })
 }
 
-// 上传帖子
-functio食物n uploadPost(title, content) {
+// 上传食物帖子
+function uploadPost(title, content, location, lat, lng) {
     console.log(title, content);
-    if (!title || !content)
-        return hint('食物投稿内容请填写完整!');
+    if (!title)
+        return hint('need description!');
 
-    if (title.length < 5)
-        return hint('5个字都挤不出来吗?');
-
-    if (title.length > 100)
-        return hint('标题超长咯!');
+    if (title.length < 2)
+        return hint('description is too short!');
 
     if (!content)
-        return hint('没有选择图片!');
-    data = 'title=' + title + '&content=' + content;
+        return hint('need image!');
+    if (!location)
+        return hint('need location!');
+    data = 'title=' + title + '&content=' + content + '&location=' + location + '&lat=' + lat + '&lng=' + lng;
     $.ajax({
         type: 'POST',
         url: '/api/post/new',
         data: data,
         success: function (msg) {
             hint(msg.hint);
+            window.location.href = '/';
         },
         error: function () {
             hint('server error!');
@@ -68,13 +71,17 @@ functio食物n uploadPost(title, content) {
 
 // 上传头像
 function uploadAvatar(input, img, callback) {
-    callback = callback || function () {};
+    callback = callback || function () {
+    };
     $(input).on('change', function () {
         var login = window.login_state;
-        if (!login) return hint('need login first！');
+        if (!login) {
+            window.location.href = '/user/login';
+            return hint('need login first！');
+        }
         if (this.files !== undefined) {
             var file = this.files[0];
-            var type = ['image/png','image/jpeg','image/gif'];
+            var type = ['image/png', 'image/jpeg', 'image/gif'];
             if (file.size > 1024 * 1024 * 3) {
                 hint('size over 3M');
                 return;
@@ -94,7 +101,7 @@ function uploadAvatar(input, img, callback) {
             url = iframeAvatar.contentWindow.window.location.href;
             if (url.indexOf('uploadredirect') !== -1) {
                 clearInterval(time);
-				iframeAvatar.contentWindow.window.location.href = '';
+                iframeAvatar.contentWindow.window.location.href = '';
                 parseUrl(url, callback);
                 $('.spinner').remove();
             }
@@ -123,10 +130,10 @@ function uploadAvatar(input, img, callback) {
 }
 
 // 获得一组没有通过审核的食物帖子
-function getNotPass (callback) {
+function getNotPass(callback) {
     $.ajax({
         type: 'get',
-        url:  '/api/post/notpass',
+        url: '/api/post/notpass',
         success: function (msg) {
             callback(null, msg.topic)
         },
@@ -137,7 +144,7 @@ function getNotPass (callback) {
 }
 
 // 食物帖子通过加1
-function allowPass (id, callback) {
+function allowPass(id, callback) {
     $.ajax({
         type: 'post',
         url: '/api/post/allowPass',
@@ -152,81 +159,81 @@ function allowPass (id, callback) {
 }
 
 // 食物帖子不通过加一
-function notPass (id, callback) {
-	$.ajax({
-		type: 'post',
-		url: '/api/post/notpass',
-		data: '_id=' + id,
-		success: function (msg) {
-			callback(null, msg);
-		},
-		error: function () {
-			callback(true, null);
-		}
-	})
+function notPass(id, callback) {
+    $.ajax({
+        type: 'post',
+        url: '/api/post/notpass',
+        data: '_id=' + id,
+        success: function (msg) {
+            callback(null, msg);
+        },
+        error: function () {
+            callback(true, null);
+        }
+    })
 }
 
 // 增加留言
-function addReply (id, content, callback) {
-	var data = '_id=' + id + '&content=' + content;
-	$.ajax({
-		type: 'post',
-		url: '/api/post/addreply',
-		data: data,
-		success: function (msg) {
-			callback(null, msg)
-		},
-		error: function () {
-			callback(true, null);
-		}
-	});
+function addReply(id, content, callback) {
+    var data = '_id=' + id + '&content=' + content;
+    $.ajax({
+        type: 'post',
+        url: '/api/post/addreply',
+        data: data,
+        success: function (msg) {
+            callback(null, msg)
+        },
+        error: function () {
+            callback(true, null);
+        }
+    });
 }
 
 // 获取留言
-function getReply (topicId, callback) {
+function getReply(topicId, callback) {
 
-	var data = '_id=' + topicId;
-	$.ajax({
-		type: 'post',
-		url: '/api/post/getreply',
-		data: data,
-		success: function (msg) {
-			callback(null, msg);
-		},
-		error: function () {
-			callback(true, null);
-		}
-	});
+    var data = '_id=' + topicId;
+    $.ajax({
+        type: 'post',
+        url: '/api/post/getreply',
+        data: data,
+        success: function (msg) {
+            callback(null, msg);
+        },
+        error: function () {
+            callback(true, null);
+        }
+    });
 }
 
 // 喜欢一条食物帖子
-function like (topicId, callback) {
-	var data = '_id=' + topicId;
-	$.ajax({
-		type: 'post',
-		url: '/api/post/like',
-		data: data,
-		success: function (msg) {
-			callback(null, msg);
-		},
-		error: function () {
-			callback(true, null);
-		}
-	});
+function like(topicId, callback) {
+    var data = '_id=' + topicId;
+    $.ajax({
+        type: 'post',
+        url: '/api/post/like',
+        data: data,
+        success: function (msg) {
+            callback(null, msg);
+        },
+        error: function () {
+            callback(true, null);
+        }
+    });
 }
 
-// 喜欢一条食物评论
-function likeReply (replyId, callback) {
-	var data = '_id=' + replyId;
-	$.ajax({
-		type: 'post',
-		url: '/api/post/likereply',
-		data: data,
-		success: function (msg) {
-			callback(null, msg);
-		},
-		error: function () {
-			callback(true, null);
-		}
-	});
+// 喜欢一条评论
+function likeReply(replyId, callback) {
+    var data = '_id=' + replyId;
+    $.ajax({
+        type: 'post',
+        url: '/api/post/likereply',
+        data: data,
+        success: function (msg) {
+            callback(null, msg);
+        },
+        error: function () {
+            callback(true, null);
+        }
+    });
 }

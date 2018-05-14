@@ -55,7 +55,7 @@ function getTopicById(option, cd) {
     });
 }
 
-// 创建一条帖子
+// 创建一条食物帖子
 function createTopic(topic, callback) {
     TopicPassed.create(topic, function (err, result) {
         callback(err, result);

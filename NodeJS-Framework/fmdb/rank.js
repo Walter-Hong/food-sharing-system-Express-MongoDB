@@ -1,9 +1,8 @@
-//这里预留一个rank的功能，作为创新的拓展
 var User = require('../models/index').User;
 var TopicPassed = require('../models/index').TopicPassed;
 
 exports.user = user;       // 积分前5的用户
-exports.topic = topic;     // 获取帖子赞数排名前4
+exports.topic = topic;     // 获取食物帖子赞数排名前4
 
 
 function user(callback) {

@@ -1,4 +1,3 @@
-//试用一下第三方QQ接口
 var config = require('../config.js');
 var https = require('https');
 var qs = require('querystring');

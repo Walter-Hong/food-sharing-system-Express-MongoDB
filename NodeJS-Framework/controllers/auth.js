@@ -23,10 +23,10 @@ function index(req, res, next) {
 
 }
 
-// 尝试先使用 qq 登录，后面换成谷歌
+// qq 登录
 exports.qqSign = auth.bind(qq);
 
-// 微博 登录，后面换成fb
+// 微博 登录
 exports.wbSign = auth.bind(wb);
 
 function auth(req, res, next) {

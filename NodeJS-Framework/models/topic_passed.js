@@ -4,6 +4,9 @@ var Schema = mongoose.Schema;
 var TopicPassedSchema = new Schema({
     title: {type: String},
     content: {type: String},
+    location: {type: String},
+    lat: {type: Number, default: 0},
+    lng: {type: Number, default: 0},
     author_id: {type: Schema.ObjectId},
     create_date: {type: Date, default: Date.now},
 
