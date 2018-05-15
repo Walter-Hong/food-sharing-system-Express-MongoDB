@@ -130,4 +130,3 @@ function count(option, callback) {
         callback(err, count);
     });
 }
-

@@ -42,10 +42,13 @@ function uploadPostImg(input, img) {
 }
 
 // 上传食物帖子
-function uploadPost(title, content, location, lat, lng) {
+function uploadPost(title, content, location, lat, lng, category) {
     console.log(title, content);
     if (!title)
         return hint('need description!');
+
+    if (!category)
+        return hint('need to choose category');
 
     if (title.length < 2)
         return hint('description is too short!');
@@ -54,7 +57,7 @@ function uploadPost(title, content, location, lat, lng) {
         return hint('need image!');
     if (!location)
         return hint('need location!');
-    data = 'title=' + title + '&content=' + content + '&location=' + location + '&lat=' + lat + '&lng=' + lng;
+    data = 'title=' + title + '&content=' + content + '&location=' + location + '&lat=' + lat + '&lng=' + lng + '&category=' + category;
     $.ajax({
         type: 'POST',
         url: '/api/post/new',
@@ -232,6 +235,21 @@ function likeReply(replyId, callback) {
         success: function (msg) {
             callback(null, msg);
         },
+        error: function () {
+            callback(true, null);
+        }
+    });
+}
+
+function getNewTopic(text, callback){
+    data = 'text=' + text
+    $.ajax({
+        type: 'post',
+        url: '/',
+        data: data,
+        success: function (data) {
+            location.reload();
+          },
         error: function () {
             callback(true, null);
         }

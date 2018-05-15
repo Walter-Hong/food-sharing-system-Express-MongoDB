@@ -5,8 +5,8 @@ var auth    = require('./controllers/auth');
 var router  = express.Router();
 var config  = require('./config');
 
-
 router.get('/', post.index);             // 主页
+router.post('/', post.post_index);       //add a post API for getting the re-render request
 router.get('/week', post.week);          // 周榜
 router.get('/month', post.month);        // 月榜
 router.get('/p/:page', post.index);      // 主页分页

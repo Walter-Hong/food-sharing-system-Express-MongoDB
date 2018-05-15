@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 
 var TopicSchema = new Schema({
     title: {type: String},
+    category:{type: String},
     content: {type: String},
     location: {type: String},
     lat: {type: Number, default: 0},
@@ -22,6 +23,9 @@ var TopicSchema = new Schema({
 TopicSchema.statics.legal = function (topic) {
     if (!topic.title)
         return {states: -1, hint: 'need description!'};
+
+    if(!topic.category)
+        return {states: -1, hint: 'need category'};
 
     if (topic.title.length < 2)
         return {states: -2, hint: 'description is too short!!'};
