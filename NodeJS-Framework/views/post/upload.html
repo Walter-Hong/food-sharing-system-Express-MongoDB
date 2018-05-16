@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title><%= title + ' ' + config.title %></title>
     <meta name="description" content="<%= config.description %>"/>
+    <meta name="category" content="<%= config.category %>"/>
     <meta name="keywords" content="<%= config.keywords %>"/>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width">
     <meta name="format-detection" content="telephone=no"/>
@@ -54,6 +55,23 @@
                 <!--<p class="hint">e.g. Quality,auantity,use by date</p>-->
             </div>
             <div class="group clearfix">
+                <p>Category</p>
+                <!-- <textarea id="title" placeholder="e.g. Quality,auantity,use by date"></textarea> -->
+                <!-- meat, vegetables, fruits, milk, fruit juices, yogurt, snacks, frozen instant foods, desserts -->
+                <select id='selector'>
+                  <option value ="meat">meat</option>
+                  <option value ="vegetables">vegetables</option>
+                  <option value="fruits">fruit</option>
+                  <option value="milk">milk</option>
+                  <option value="juices">juices</option>
+                  <option value ="yogurt">yogurt</option>
+                  <option value ="snacks">snacks</option>
+                  <option value="frozen instant foods">frozen instant foods</option>
+                  <option value="desserts">desserts</option>
+                </select>
+                <!--<p class="hint">e.g. Quality,auantity,use by date</p>-->
+            </div>
+            <div class="group clearfix">
                 <p>Location</p>
                 <textarea id="location" placeholder="detail address"></textarea>
                 <input type="text" id="lat" name="lat" hidden/>
@@ -79,7 +97,12 @@
 
     // 上传帖子
     $('.upload-bnt').on('click', function () {
-        uploadPost($('#title').val(), $('.show-img').attr('src'), $('#location').val(), $('#lat').val(), $('#lng').val())
+        uploadPost($('#title').val(), 
+                   $('.show-img').attr('src'), 
+                   $('#location').val(), 
+                   $('#lat').val(), 
+                   $('#lng').val(),
+                   $("#selector").val())
     });
 
     // 点击已经上传了的图片时候弹出图片选择框

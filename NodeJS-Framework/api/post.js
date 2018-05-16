@@ -19,7 +19,7 @@ exports.addReply = addReply;       // 给一条食物帖子留言
 exports.getReply = getReply;       // 获取一条帖子的留言
 exports.like = like;           // 增加一个喜欢
 exports.likeReply = likeReply;      // 给一条评论点赞
-
+exports.getNewTopic = getNewTopic;
 
 // 上传食物帖子图片
 function uploadImg(req, res, next) {
@@ -68,6 +68,7 @@ function uploadTopic(req, res, next) {
         location: req.body.location,
         lat: req.body.lat,
         lng: req.body.lng,
+        category: req.body.category,
         author_id: ObjectId(req.user._id)
     };
 
@@ -98,7 +99,6 @@ function getNotPass(req, res, next) {
 
 // 食物帖子的通过数量加一
 function allowPass(req, res, next) {
-
     topic.allowPass(ObjectId(req.body._id), function (err, result) {
         if (err) return res.json({states: -1, hint: 'server busy!'});
         return res.json({states: 1, hint: 'success！'});
@@ -174,3 +174,26 @@ function likeReply(req, res, next) {
         res.json(msg);
     });
 }
+
+//查询
+function getNewTopic(req, res, next){
+    var option = {
+        condition: {
+            title:new RegExp(req.body.text)
+        }
+    };
+    topic_passed.getTopic(option, function (err, item) {
+        if (err) return next(err);
+        res.render('index', {
+            user: req.user,
+            topic: item.topic,
+            count: item.topic_count,
+            user_rank: item.user_rank,
+            topic_rank: item.topic_rank,
+            paging: option.page,
+            paging_link: '/p', // 跳转的地址头
+            title: config.title,
+            subfield: 0
+        });
+        res.end();
+    });}

@@ -5,6 +5,8 @@ var config = {
 
     description: 'food sharing place',
 
+    category: 'food category',
+
     keywords: 'food;share',
 
 	mini_assets: false,  // 启用静态资源压缩

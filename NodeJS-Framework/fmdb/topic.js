@@ -73,6 +73,7 @@ function overBound(topic) {
             location: topic.location,
             lat: topic.lat,
             lng: topic.lng,
+            category: topic.category,
             author_id: topic.author_id,
             create_date: date,
             like_count: parseInt(Math.random() * config.start_like + 1)

@@ -4,6 +4,48 @@
     <strong>真的什么都没有了啊!</strong>
 </div>
 <% } %>
+<div>
+    <div class="row">
+        <input type="text" id= 'search_input' placeholder="Please input the key words">
+        <span>            
+            <button class="button" id='search_btn'>Search</button>
+        </span>
+         <select id='search_selector'>
+              <option value ="all">all</option>
+              <option value ="meat">meat</option>
+              <option value ="vegetables">vegetables</option>
+              <option value="fruits">fruit</option>
+              <option value="milk">milk</option>
+              <option value="juices">juices</option>
+              <option value ="yogurt">yogurt</option>
+              <option value ="snacks">snacks</option>
+              <option value="frozen instant foods">frozen instant foods</option>
+              <option value="desserts">desserts</option>
+        </select>
+    </div>    
+</div>
+
+<script type="text/javascript">
+    $('#search_btn').on('click', function () {
+        var text = $('#search_input').val();
+        // var option = $('#search_selector').val();
+        var newtopic = getNewTopic(text);
+    });
+
+    $('#search_selector').change(function(){
+        var category = $('#search_selector').val();
+        if ('all' == category) $('.post-item').show();
+        $('h5[id=category]').each(function () {
+            var this_category = $(this).children('a').text();
+            if(this_category!=category && category!='all'){
+                $(this).parent().parent().hide()              
+            }else if(this_category==category){
+                $(this).parent().parent().show();
+            }
+        }); 
+    });
+</script>
+
 <% for (var i = 0; i < topic.length; i++){ %>
 <div class="post-item">
     <div class="post-head clearfix">
@@ -18,8 +60,10 @@
         </div>
     </div>
     <div class="content">
-        <h3 class="title content-title"><a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].title %></a>
+        <h3 class="title content-title">Description: <a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].title %></a>
         </h3>
+        <h5 id='category' class="title content-title">Category: <a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].category %></a>
+        </h5>
         <a href="/topic/<%= topic[i]._id %>" target="_blank" class="picture">
             <img class="content-picture" src="<%= topic[i].content + config.qiniu.watermark %>" alt="">
         </a>

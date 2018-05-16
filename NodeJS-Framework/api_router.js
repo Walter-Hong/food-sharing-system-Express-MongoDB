@@ -18,6 +18,7 @@ router.post('/post/new', middlewares.auth, post.uploadTopic);     // 上传食�
 router.post('/post/like', middlewares.auth, post.like);           // 喜欢一条食物帖子
 router.post('/post/likereply', middlewares.auth, post.likeReply); // 喜欢一条评论
 router.post('/post/addreply', middlewares.auth, post.addReply);   // 给一条食物帖子留言
+router.post('/post/getNewTopic', post.getNewTopic); //This router is for supporting search function that request index for re-render index page
 
 router.get('/post/notpass', post.getNotPass);   // 返回一条还没有审核的帖子
 router.post('/post/allowPass', post.allowPass); // 食物帖子通过数加一

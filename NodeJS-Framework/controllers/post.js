@@ -2,6 +2,7 @@ var config = require('../config');
 var tools = require('../api/tools');
 var fmdb = require('../fmdb');
 var topic_passed = fmdb.topic_passed;
+var searchdata = '';
 
 exports.upload = upload;  // 上传食物帖子
 exports.pass = pass;    // 审核帖子
@@ -9,14 +10,17 @@ exports.index = index;   // 展示首页
 exports.week = week;    // 周榜
 exports.month = month;   // 月榜
 exports.topic = topic;   // 展示某个食物帖子
+exports.post_index = post_index;
 
 function index(req, res, next) {
+    var regSearch = new RegExp(searchdata);
     var option = {
-        condition: {},
+        condition: {title:regSearch},
         sort: {create_date: -1},
         page: req.params.page || 1,
         userInfo: req.user.info
     };
+    console.log(option['condition']['title']);
     topic_passed.getTopic(option, function (err, item) {
         if (err) return next(err);
         res.render('index', {
@@ -30,7 +34,14 @@ function index(req, res, next) {
             title: config.title,
             subfield: 0
         });
+        searchdata = '';
     });
+}
+
+function post_index(req, res, next){
+    // searchdata = req.body.searchbar;
+    searchdata = req.body.text;
+    res.end();
 }
 
 function week(req, res, next) {
@@ -111,6 +122,6 @@ function topic(req, res, next) {
             topic_rank: item.topic_rank,
             author: item.topic[0].author || [],
             title: item.topic[0].title
-        })
+        });
     });
 }

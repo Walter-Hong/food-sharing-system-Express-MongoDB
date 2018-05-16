@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var TopicPassedSchema = new Schema({
     title: {type: String},
+    category: {type: String},
     content: {type: String},
     location: {type: String},
     lat: {type: Number, default: 0},
