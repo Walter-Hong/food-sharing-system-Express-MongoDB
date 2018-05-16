@@ -8,9 +8,9 @@ var async = require('async');
 exports.getTopic = getTopic;    // 获得一组食物帖子
 exports.createTopic = createTopic; // 创建一条食物帖子
 exports.like = like;        // 增加一个喜欢
-exports.getTopicById = getTopicById;// 通过食物帖子id获取帖子
+exports.getTopicById = getTopicById;// 通过帖子id获取食物帖子
 
-// 获得一组食物帖子,包含 食物帖子排行，用户排行
+// 获得一组帖子,包含 食物帖子排行，用户排行
 function getTopic(option, cd) {
     async.series({
         topic: function (callback) {

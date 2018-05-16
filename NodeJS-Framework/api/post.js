@@ -16,7 +16,7 @@ exports.getNotPass = getNotPass;     // 获得没有审核的食物帖子
 exports.notPass = notPass;        // 食物帖子不通过加一
 exports.allowPass = allowPass;      // 食物帖子通过加一
 exports.addReply = addReply;       // 给一条食物帖子留言
-exports.getReply = getReply;       // 获取一条食物帖子的留言
+exports.getReply = getReply;       // 获取一条帖子的留言
 exports.like = like;           // 增加一个喜欢
 exports.likeReply = likeReply;      // 给一条评论点赞
 
@@ -105,7 +105,7 @@ function allowPass(req, res, next) {
     });
 }
 
-// 食物帖子不通过的数量加1
+// 帖子不通过的数量加1
 function notPass(req, res, next) {
 
     topic.notPass(ObjectId(req.body._id), function (err, result) {

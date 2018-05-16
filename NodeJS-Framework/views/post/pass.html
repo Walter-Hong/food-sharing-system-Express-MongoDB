@@ -51,7 +51,7 @@
     </div>
     <!--<div class="side">-->
         <!--<h2>请别让以下帖子通过审核!</h2>-->
-        <!--<h3>1. 带有色情</h3>-->
+        <!--<h3>1. 带有色情或者求车牌什么的</h3>-->
         <!--<h3>2. 政治敏感内容</h3>-->
         <!--<h3>3. 灌水恶意求赞</h3>-->
         <!--<h3>4. 无笑点带有广告</h3>-->
@@ -64,7 +64,7 @@
     var $img = $('#topic-img');
     var $title = $('#topic-title');
 
-    // 获得没有通过的食物帖子
+    // 获得没有通过的帖子
     getNotPass(function (err, topic) {
         if (err) return hint('server error!');
         $img.attr('src', topic.content);

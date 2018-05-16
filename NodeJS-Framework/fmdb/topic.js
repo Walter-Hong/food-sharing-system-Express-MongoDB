@@ -6,8 +6,8 @@ var async = require('async');
 exports.legal = Topic.legal;    // 验证数据
 exports.upload = upload;         // 上传食物帖子
 exports.getNotPass = getNotPass;     // 获得没有通过审核的食物帖子
-exports.allowPass = allowPass;      // 食物帖子通过数量加一
-exports.notPass = notPass;        // 食物帖子不通过数量加一
+exports.allowPass = allowPass;      // 帖子通过数量加一
+exports.notPass = notPass;        // 帖子不通过数量加一
 exports.getTopicById = getTopicById; // 通过 id 获取食物帖子
 
 function upload(topicData, callback) {
@@ -77,11 +77,11 @@ function overBound(topic) {
             create_date: date,
             like_count: parseInt(Math.random() * config.start_like + 1)
         };
-        // 删除以前的食物帖子数据
+        // 删除以前的帖子数据
         Topic.remove({_id: topic._id}, function (err, result) {
         });
 
-        // 加入到通过审核的食物帖子集合中
+        // 加入到通过审核的帖子集合中
         topic_passed.createTopic(TopicData, function (err, result) {
         });
     }

@@ -25,7 +25,7 @@ var config = {
 		CALLBACK_URI: ''
 	},
 
-	// 七牛图片空间（不知道sardar理不理解），帖子储存在本地的话，这里留空
+	// 七牛图片空间（sardar），帖子储存在本地的话，这里留空
 	qiniu: {
 		ACCESS_KEY: '',
 		SECRET_KEY: '',
@@ -57,7 +57,7 @@ var config = {
 	// 点赞时随机给多少区间的赞
 	like: 10,
 
-	// 一页显示多少条食物帖子
+	// 一页显示多少条帖子
 	topic_limit: 20,
 
 	// 一页显示多少评论
@@ -66,7 +66,7 @@ var config = {
 	// 默认头像有多少张
 	avatar_default_count: 80,
 
-	// 食物帖子最大多少m
+	// 帖子最大多少m
 	max_topic_img: 3
 };
 module.exports = config;

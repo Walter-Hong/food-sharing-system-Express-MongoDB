@@ -23,6 +23,7 @@
     "loader": "^2.1.1",
     "loader-builder": "^2.6.0",
     "mongoose": "^4.11.3",
-    "qiniu": "^7.0.5"
+    "qiniu": "^7.0.5",
+    "socket.io": "^2.1.0"
   }
 }

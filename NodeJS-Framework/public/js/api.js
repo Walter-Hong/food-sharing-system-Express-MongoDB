@@ -22,7 +22,7 @@ $(window).ready(function () {
 function bind() {
     var login = window.login_state;
 
-    // 食物投稿点击
+    // 投稿点击
     $('.post-up').on('click', function () {
         if (!login) {
             window.location.href = '/user/login';
@@ -33,7 +33,7 @@ function bind() {
 }
 
 
-// 上传食物帖子图片
+// 上传帖子图片
 function uploadPostImg(input, img) {
     uploadAvatar(input, img, function () {
         $('#form-img').css('display', 'none');
@@ -41,7 +41,7 @@ function uploadPostImg(input, img) {
     })
 }
 
-// 上传食物帖子
+// 上传帖子
 function uploadPost(title, content, location, lat, lng) {
     console.log(title, content);
     if (!title)
@@ -129,7 +129,7 @@ function uploadAvatar(input, img, callback) {
     }
 }
 
-// 获得一组没有通过审核的食物帖子
+// 获得一组没有通过审核的帖子
 function getNotPass(callback) {
     $.ajax({
         type: 'get',
@@ -143,7 +143,7 @@ function getNotPass(callback) {
     });
 }
 
-// 食物帖子通过加1
+// 帖子通过加1
 function allowPass(id, callback) {
     $.ajax({
         type: 'post',
@@ -158,7 +158,7 @@ function allowPass(id, callback) {
     })
 }
 
-// 食物帖子不通过加一
+// 帖子不通过加一
 function notPass(id, callback) {
     $.ajax({
         type: 'post',
@@ -206,7 +206,7 @@ function getReply(topicId, callback) {
     });
 }
 
-// 喜欢一条食物帖子
+// 喜欢一条帖子
 function like(topicId, callback) {
     var data = '_id=' + topicId;
     $.ajax({

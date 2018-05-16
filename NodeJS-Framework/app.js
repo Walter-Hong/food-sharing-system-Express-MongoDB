@@ -9,7 +9,7 @@ var Loader = require('loader');
 var path = require('path');
 var ejs = require('ejs');
 
-
+var debug = require('debug')('funny:server');
 var app = express();
 var userMiddlewares = require('./middlewares/auth');
 var webRouter = require('./web_router');
@@ -20,7 +20,8 @@ var avatarDir = path.join(__dirname, 'avatar');
 var viewsDir = path.join(__dirname, 'views');
 var pictureDir = path.join(__dirname, 'picture');
 
-
+var io = require('./io');
+var http = require('http');
 app.set('views', viewsDir);
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
@@ -55,7 +56,8 @@ if (config.mini_assets) {
         throw e;
     }
 }
-
+var port = config.port || 3000;
+app.set('port', port);
 app.locals = {
     Loader: Loader,
     assets: assets,
@@ -71,4 +73,59 @@ app.use(function (err, req, res, next) {
     res.redirect('/');
 });
 
-app.listen(3000, '127.0.0.1');
+app.set('port', port);
+
+/**
+ * 创建http服务
+ */
+var server = http.createServer(app);
+server.listen(port);
+
+
+server.on('error', onError);
+server.on('listening', onListening);
+/**
+ * socket.io 监听
+ */
+io.attach(server);
+
+
+/**
+ * 服务器错误事件监听
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // 错误消息转换
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * 服务开始监听事件监听
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
