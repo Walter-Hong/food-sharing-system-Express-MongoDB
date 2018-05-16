@@ -163,7 +163,7 @@ window.$shareImg = $('.content-picture');
 
 
 });
-// 分享食物帖子
+// 分享帖子
 function shareTo(id, type, postId){
 	var title = $shareTitle[id].innerText;
 	var img = $shareImg[id].src;

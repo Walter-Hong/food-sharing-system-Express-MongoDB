@@ -19,7 +19,7 @@ var TopicSchema = new Schema({
     notpassed_count: {type: Number, default: 0} // 不同意通过的数量
 });
 
-// 验证帖子合法性
+// 验证食物帖子合法性
 TopicSchema.statics.legal = function (topic) {
     if (!topic.title)
         return {states: -1, hint: 'need description!'};

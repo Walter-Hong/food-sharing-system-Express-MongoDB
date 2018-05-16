@@ -1,4 +1,3 @@
-var config = require('../config');
 var user = require('../fmdb').user;
 
 exports.new = newUser; // 新用户
@@ -8,6 +7,7 @@ exports.index = index;   // 显示某人的主页
 exports.edit = edit;    // 修改用户资料
 exports.center = center;  // 用户中心
 exports.reply = reply;   // 某人的回复
+exports.chat = chat;   // 聊天
 
 function newUser(req, res, next) {
     var user = req.user;
@@ -31,7 +31,7 @@ function edit(req, res, next) {
 
     res.render('./user/edit', {
         user: req.user,
-        title: '个人资料'
+        title: 'profile'
     });
 }
 
@@ -72,7 +72,7 @@ function center(req, res, next) {
 
     res.render('./user/center', {
         user: req.user,
-        title: '个人中心'
+        title: 'user center'
     });
 }
 
@@ -92,7 +92,29 @@ function reply(req, res, next) {
             count: item.author.reply_count,
             paging: option.page,
             paging_link: '/reply/' + item.author.loginname, // 跳转的地址头
-            title: '所有评论'
+            title: 'all comment'
+        });
+    });
+
+}
+
+function chat(req, res, next) {
+    var option = {
+        name: req.params.name,
+        page: req.params.page || 1
+    };
+
+
+    user.getReplyByName(option, function (err, item) {
+        if (err) return next(err);
+        res.render('./user/chat', {
+            user: req.user,
+            title: 'chat with ' + req.params.name,
+            user_rank: item.user_rank,
+            topic_rank: item.topic_rank,
+            reply: item.reply,
+            author: item.author,
+            count: item.author.reply_count
         });
     });
 
