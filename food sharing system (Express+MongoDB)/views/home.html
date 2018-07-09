@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title + ' ' + config.title %></title>
+    <meta name="description" content="<%= config.description %>"/>
+    <meta name="keywords" content="<%= config.keywords %>"/>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon"/>
+
+
+    <%-
+    Loader('/public/css/pass_index.css')
+    .css('/public/css/default.css')
+    .css('/public/css/header.css')
+    .css('/public/css/head_phone.css')
+    .css('/public/css/pass.css')
+    .css('/public/css/footer.css')
+    .done(assets, config.static_host, config.mini_assets)
+    %>
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%-
+    Loader('/public/js/pass_index.js')
+    .js('/public/js/api.js')
+    .js('/public/js/head_phone.js')
+    .js('/public/js/hint.js')
+    .done(assets, config.static_host, config.mini_assets)
+    %>
+    <style type="text/css">
+        .nav {
+            width: 332px;
+            height: 81px;
+            background: #32CD32;
+            position: absolute;
+            z-index: 10;
+            left: 112px;
+            top: 764px;
+        }
+
+        .nav2 {
+            width: 1866px;
+            height: 102px;
+            background: #87CEEB;
+            position: absolute;
+            z-index: 10;
+            left: 1px;
+            top: 1833px;
+        }
+
+        .active {
+            width: 332px;
+            height: 81px;
+            text-align: center;
+            float: left;
+
+            color: #fff;
+            font-size: 35px;
+            font-weight: 600;
+
+        }
+
+        .front {
+            width: 332px;
+            height: 85px;
+            text-align: center;
+            color: #fff;
+            font-size: 35px;
+            font-weight: 600;
+
+        }
+
+        .p {
+            font-size: 25px;
+        }
+
+        .imgw {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<%- include('./header.html', {user: user}) %>
+
+
+<div>
+    <nav class="nav">
+        <li class="active"><a class="front" href="javascript:void(0)">JOIN US</a></li>
+    </nav>
+    <div class="imgw">
+        <img src="../../public/img/home1.png" alt="" width="100%">
+
+    </div>
+    <div class="wastefood_img">
+        <table width="1864">
+            <tr>
+                <td width="630" height="209">
+                    <a href="/topic/5af9d7b22ae7120943cdd09d" target="_blank" class="public">
+                        <img class="wastefood_img" src="../../public/img/home3.jpg" height="343" width="630" alt="">
+                    </a>
+                </td>
+                <td width="619">
+                    <a href="/topic/5af9d7b22ae7120943cdd09d" target="_blank" class="public">
+                        <img class="wastefood_img" src="../../public/img/home4.jpg" height="344" width="619" alt="">
+                    </a>
+                </td>
+                <td width="796">
+                    <a href="/topic/5af9d7b22ae7120943cdd09d" target="_blank" class="public">
+                        <img class="wastefood_img" src="../../public/img/home2.jpg" height="354" width="601" alt="">
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="sidebar">
+        <div class="rank">
+            <nav class="nav2"><p class="p">The "chuhe" is a GPS-based website which helps people to post their food in
+                the internet. Users can provide their food on the website with their location, then other users can
+                research food geographically and chat with the owner separately. Our target is to help people save food
+                and reduce food wasting to make a contribution to the environment.
+            </p></nav>
+        </div>
+
+    </div>
+</div>
+<%- include('./footer.html') %>
+<script>
+    var $port = $('#port');
+    var portTop = $port.offset().top;
+    var portLeft = $port.offset().left;
+    var clientWidth = $(window).width();
+
+    $(window).resize(function () {
+        clientWidth = $(window).width();
+        $port.css({position: 'static', left: 'auto', 'top': 'auto', 'marginRight': '20px'});
+        portLeft = $port.offset().left;
+        portTop = $port.offset().top;
+        if (clientWidth < 800) {
+            $port.css({
+                position: 'fixed',
+                top: 'auto',
+                left: 'auto',
+                bottom: '20px',
+                right: '20px',
+                margin: 0
+            });
+        }
+    });
+
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        if (clientWidth > 800) {
+            if (scrollTop > portTop - 86) {
+
+                $port.css({
+                    position: 'fixed',
+                    top: '86px',
+                    left: portLeft + 'px',
+                    margin: '0',
+                    marginRight: '25px'
+                });
+            }
+            if (scrollTop < portTop - 86) {
+                $port.css({
+                    position: 'static',
+                    marginTop: '20px',
+                    marginRight: '25px'
+                })
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

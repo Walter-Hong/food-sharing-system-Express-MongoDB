@@ -1,0 +1,19 @@
+<div class="user-hd clearfix">
+    <a href="/people/<%= author.loginname %>"><img src="<%= author.avatar %>" alt="<%= author.loginname %>"
+                                                   class="avatar"></a>
+    <div class="info">
+        <strong class="ell"><a href="/people/<%= author.loginname %>"><%= author.loginname %></a></strong>
+        <p class="ell"><%= author.description %></p>
+        <% if (author.qq) { %><a href="<%= author.qq %>" target="_blank" class="con kj iconfont">&#xe68c;</a><% } %>
+        <% if (author.wb) { %><a href="<%= author.wb %>" target="_blank" class="con wb iconfont">&#xe61e;</a><% } %>
+    </div>
+</div>
+
+<div class="user-hd-port clearfix">
+    <a <% if (header_on === 3) { %> class="on"<% } %> href="/post/buy/<%= author.loginname %>">activity</a>
+    <a <% if (header_on === 0) { %> class="on"<% } %> href="/people/<%= author.loginname %>">post(<%= author.topic_count
+    %>)</a>
+    <a <% if (header_on === 1) { %> class="on"<% } %> href="/reply/<%= author.loginname %>">comment(<%=
+    author.reply_count %>)</a>
+    <a <% if (header_on === 2) { %> class="on"<% } %> href="/user/chat/<%= author.loginname %>">chat online</a>
+</div>
