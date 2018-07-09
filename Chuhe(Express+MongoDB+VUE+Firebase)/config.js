@@ -1,3 +1,4 @@
+
 var config = {
 	domain: '',
 
@@ -9,66 +10,66 @@ var config = {
 
     keywords: 'food;share',
 
-	mini_assets: false,  // 启用静态资源压缩
+	mini_assets: false,  // compress static resources
 
-	static_host: '',    // cdn 静态文件储存域名
+	static_host: '',    // cdn static file storage host domain
 
-	// 微博授权 http://open.weibo.com/
+	//  http://open.weibo.com/
 	wb: {
 		ID: '',
 		SECRET: '',
 		CALLBACK_URI: ''
 	},
 
-	// qq授权 https://connect.qq.com/
+	// https://connect.qq.com/
 	qq: {
 		ID: '',
 		SECRET: '',
 		CALLBACK_URI: ''
 	},
 
-	// 七牛图片空间，帖子储存在本地的话，这里留空
+	
 	qiniu: {
 		ACCESS_KEY: '',
 		SECRET_KEY: '',
-		BUCKET: '', // 图片仓库名
-		watermark: '', // 水印样式
-		shrink: '',  // 缩放样式
-		URL: '' // 地址头
+		BUCKET: '', 
+		watermark: '', 
+		shrink: '',  
+		URL: '' 
 	},
 
-	// 数据库配置
+	// Database configuration
 	db: 'mongodb://127.0.0.1/funny_conmunity',
 
-	// session 密匙
-	session_secret: '随便输入点啥就好了啦(字母,符号,数字)',
+	// session key
+	session_secret: 'please input something ',
 
-	// token 密匙
-	token_secret: '随便输入点啥就好了啦(字母,符号,数字)',
+	// token key
+	token_secret: 'please input something',
 
-	// 用户密码 密匙
-	password_secret: '随便输入点啥就好了啦(字母,符号,数字)',
+	// user password 
+	password_secret: 'please input something',
 
-	// 多少人同意通过审核就展示这个帖子
-	// 多少人不同意就隐藏掉这个帖子
+	//  the food posting could be displayed after xx users’ authorization.
+	//  the food posting should be closed after xx users’ non-authorization.
 	pass_count: 3,
 
-	// 发布时给1到多少区间的赞
+	//  How many likes could be received when the posting is published
 	start_like: 10,
 
-	// 点赞时随机给多少区间的赞
+	// How many likes could be received when users vote a like on the posting.
 	like: 10,
 
-	// 一页显示多少条帖子
+	// how many postings are displayed in one page
 	topic_limit: 20,
 
-	// 一页显示多少评论
+	// how many comments are displayed in one page
 	reply_limit: 20,
 
-	// 默认头像有多少张
+	// how many default avatars
 	avatar_default_count: 80,
 
-	// 帖子最大多少m
+	// maximum number of food postings
 	max_topic_img: 3
 };
 module.exports = config;

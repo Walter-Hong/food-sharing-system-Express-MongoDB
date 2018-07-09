@@ -3,7 +3,7 @@ var config = require('../config');
 var User = require('../models').User;
 var user = require('../fmdb/user');
 
-// 给所有的请求添加一个公共的头，用来记录用户登录状态
+//  Provide all the request with a public header in order to record the user login status
 exports.authUser = function (req, res, next) {
     req.user = {state_login: false};
     if (req.session.token) {

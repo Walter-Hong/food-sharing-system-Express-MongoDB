@@ -1,6 +1,6 @@
 var user = require('../fmdb').user;
 
-// 登录后才能进行操作的
+//  users must login in before using the following function.
 exports.auth = function (req, res, next) {
     var token = req.session.token;
     user.getUserByToken(token, function (err, user) {
@@ -11,7 +11,7 @@ exports.auth = function (req, res, next) {
     });
 };
 
-// 不需要login也能进入
+// users don't need to login in before using the following function.
 exports.tryAuth = function (req, res, next) {
     var token = req.session.token;
     user.getUserByToken(token, function (err, user) {

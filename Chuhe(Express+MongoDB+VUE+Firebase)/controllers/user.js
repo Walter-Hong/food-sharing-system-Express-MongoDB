@@ -1,13 +1,14 @@
 var user = require('../fmdb').user;
 
-exports.new = newUser; // 新用户
-exports.login = login;   // 站内登录
+exports.new = newUser; // new user
+exports.login = login;   // login
 exports.out = out;     // logout
-exports.index = index;   // 显示某人的主页
-exports.edit = edit;    // 修改用户资料
-exports.center = center;  // 用户中心
-exports.reply = reply;   // 某人的回复
-exports.chat = chat;   // 聊天
+exports.index = index;   // demonstrate one’s home page
+exports.edit = edit;    // modifying user information
+exports.center = center;  // User center
+exports.reply = reply;   // someone’s reply
+exports.chat = chat;   // chat
+exports.buy = buy;   // buy
 
 function newUser(req, res, next) {
     var user = req.user;
@@ -54,7 +55,7 @@ function index(req, res, next) {
             count: item.topic_count,
             author: item.topic.author,
             paging: option.page,
-            paging_link: '/people/' + item.topic.author.loginname, // 跳转的地址头
+            paging_link: '/people/' + item.topic.author.loginname, 
             title: req.params.name
         })
     });
@@ -91,11 +92,36 @@ function reply(req, res, next) {
             author: item.author,
             count: item.author.reply_count,
             paging: option.page,
-            paging_link: '/reply/' + item.author.loginname, // 跳转的地址头
+            paging_link: '/reply/' + item.author.loginname, 
             title: 'all comment'
         });
     });
 
+}
+
+function buy(req, res, next) {
+    var option = {
+        condition: {},
+        sort: {like_count: -1},
+        page: req.params.page || 1,
+        userInfo: req.user.info,
+        name: req.params.name
+    };
+
+    user.getUserTopicByName(option, function (err, item) {
+        if (err) return next(err);
+        res.render('./user/buy', {
+            user: req.user,
+            topic: item.topic,
+            user_rank: item.user_rank,
+            topic_rank: item.topic_rank,
+            count: item.topic_count,
+            author: item.topic.author,
+            paging: option.page,
+            paging_link: '/people/' + item.topic.author.loginname, 
+            title: req.params.name
+        })
+    });
 }
 
 function chat(req, res, next) {

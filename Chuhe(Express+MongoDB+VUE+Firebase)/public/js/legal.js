@@ -1,4 +1,4 @@
-// 过滤html标签
+//  filter the html tag
 function filterTag(text) {
 	text = text.
 	replace(/</g, '&lt;').

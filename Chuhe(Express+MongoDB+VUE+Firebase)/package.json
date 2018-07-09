@@ -9,7 +9,7 @@
   "keywords": [
     "food;share"
   ],
-  "author": "TaoTao",
+  "author": "Team3",
   "license": "ISC",
   "dependencies": {
     "async": "^2.5.0",

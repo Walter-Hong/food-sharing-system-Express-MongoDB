@@ -1,28 +1,28 @@
 <% if (topic.length < 1) {%>
 <div class="default-hint">
     <img src="/public/img/gh.png" alt="">
-    <strong>真的什么都没有了啊!</strong>
+    <strong>nothing!</strong>
 </div>
 <% } %>
 <div>
-    <div class="row">
-        <input type="text" id= 'search_input' placeholder="Please input the key words">
+    <div class="row" style="margin-bottom: 4px;">
+        <input type="text" id='search_input' placeholder="Please input the key words">
         <span>            
             <button class="button" id='search_btn'>Search</button>
         </span>
-         <select id='search_selector'>
-              <option value ="all">all</option>
-              <option value ="meat">meat</option>
-              <option value ="vegetables">vegetables</option>
-              <option value="fruits">fruit</option>
-              <option value="milk">milk</option>
-              <option value="juices">juices</option>
-              <option value ="yogurt">yogurt</option>
-              <option value ="snacks">snacks</option>
-              <option value="frozen instant foods">frozen instant foods</option>
-              <option value="desserts">desserts</option>
+        <select id='search_selector'>
+            <option value="all">all</option>
+            <option value="meat">meat</option>
+            <option value="vegetables">vegetables</option>
+            <option value="fruits">fruit</option>
+            <option value="milk">milk</option>
+            <option value="juices">juices</option>
+            <option value="yogurt">yogurt</option>
+            <option value="snacks">snacks</option>
+            <option value="frozen instant foods">frozen instant foods</option>
+            <option value="desserts">desserts</option>
         </select>
-    </div>    
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -32,22 +32,23 @@
         var newtopic = getNewTopic(text);
     });
 
-    $('#search_selector').change(function(){
+    $('#search_selector').change(function () {
         var category = $('#search_selector').val();
         if ('all' == category) $('.post-item').show();
         $('h5[id=category]').each(function () {
             var this_category = $(this).children('a').text();
-            if(this_category!=category && category!='all'){
-                $(this).parent().parent().hide()              
-            }else if(this_category==category){
+            if (this_category != category && category != 'all') {
+                $(this).parent().parent().hide()
+            } else if (this_category == category) {
                 $(this).parent().parent().show();
             }
-        }); 
+        });
     });
 </script>
 
+
 <% for (var i = 0; i < topic.length; i++){ %>
-<div class="post-item">
+<div class="post-item post-id-<%= topic[i]._id %>">
     <div class="post-head clearfix">
         <a class="avatar clearfix" href="/people/<%= topic[i].author.loginname %>" target="_blank">
             <img src="<%= topic[i].author.avatar %>" alt="" width="50" height="50">
@@ -60,9 +61,12 @@
         </div>
     </div>
     <div class="content">
-        <h3 class="title content-title">Description: <a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].title %></a>
+        <h3 class="title content-title">Description: <a href="/topic/<%= topic[i]._id %>" target="_blank"><%=
+            topic[i].title %></a>
         </h3>
-        <h5 id='category' class="title content-title">Category: <a href="/topic/<%= topic[i]._id %>" target="_blank"><%= topic[i].category %></a>
+        <h5 id='category' class="title content-title category-<%= topic[i].category %>">Category: <a
+                href="/topic/<%= topic[i]._id %>" target="_blank"><%=
+            topic[i].category %></a>
         </h5>
         <a href="/topic/<%= topic[i]._id %>" target="_blank" class="picture">
             <img class="content-picture" src="<%= topic[i].content + config.qiniu.watermark %>" alt="">
@@ -75,19 +79,6 @@
             </a>
         </div>
         <div class="bar">
-            <a href="javascript:void(0)" class="share-bn">
-                <span><i class="iconfont">&#xe86f;</i></span>
-                <ul>
-                    <li>
-                        <span onclick="shareTo(<%= i  %>, 'qq' ,'<%= topic[i]._id  %>')"><em class="iconfont"></em>twitter</span>
-                    </li>
-                    <li><span onclick="shareTo(<%= i  %>, 'wb' ,'<%= topic[i]._id  %>')"><em class="iconfont"></em>facebook</span>
-                    </li>
-                    <!--<li class="wx_code"><span><em class="iconfont"></em>微信</span><img-->
-                    <!--src="http://qr.liantu.com/api.php?&amp;w=153&amp;text=<%= config.domain %>/topic/<%= topic[i]._id %>">-->
-                    <!--</li>-->
-                </ul>
-            </a>
             <a class="reply-button" href="javascript:void(0)" data-topic-id="<%= topic[i]._id %>">
                 <span><i class="iconfont">&#xe870;</i><%= topic[i].reply_count %></span>
             </a>
@@ -95,6 +86,20 @@
                liked="<%= topic[i].liked %>" data-topic-id="<%= topic[i]._id %>">
                 <span><i class="iconfont"><% if (topic[i].liked === 1){ %>&#xe60a;<%}else{%>&#xe63b;<%}%></i><em><%= topic[i].like_count %></em></span>
             </a>
+
+
+            <% if (user.state_login && user.info._id == topic[i].author.id) { %>
+
+            <a class="delete" href="javascript:void(0)" data-topic-id="<%= topic[i]._id %>">
+                <span><i class="iconfont">&#xe63e;</i></span></a>
+            <a id="edit" href="/post/edit/<%= topic[i]._id %>" data-topic-id="<%= topic[i]._id %>">
+                <span><i class="iconfont">&#xe615;</i></span></a>
+
+            <% } else { %>
+
+            <a class="buy" href="javascript:void(0)" data-topic-id="<%= topic[i]._id %>">
+                <span><i class="iconfont">&#xe63e;</i>request</span></a>
+            <% } %>
         </div>
     </div>
     <div class="reply">
@@ -111,3 +116,47 @@
 </div>
 
 <% } %>
+<script type="text/javascript">
+
+    function deleteReply(topicId) {
+        // alert(topicId);
+        var data = '_id=' + topicId;
+        $.ajax({
+            type: 'post',
+            url: '/api/post/deleteReply',
+            data: data,
+            success: function (data) {
+                alert('delete successful!');
+                location.reload();
+            },
+            error: function () {
+            }
+        });
+    }
+
+    var $deleteButton = $('.delete');
+    $deleteButton.on('click', function () {
+        if (!window.login_state) {
+            window.location.href = '/user/login';
+            return hint('need login first!');
+        }
+        var $This = $(this);
+        var index = $deleteButton.index($This);
+        deleteReply($This.attr('data-topic-id'), function (err, msg) {
+            if (err) return hint('server error!');
+            hint(msg.hint);
+        });
+    });
+
+
+    <%
+    if (user.state_login) { %>
+
+        if (window.location.pathname == "/people/<%= user.info.loginname %>" && $('.category-meat').size() >= 1) {
+            alert(" intelligent remind：please do not buy too many meat! Share food . ")
+        }
+    <%
+    }
+    %>
+
+</script>

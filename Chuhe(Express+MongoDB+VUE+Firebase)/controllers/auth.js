@@ -23,10 +23,10 @@ function index(req, res, next) {
 
 }
 
-// qq 登录
+// login via QQ 
 exports.qqSign = auth.bind(qq);
 
-// 微博 登录
+// login via micro-blog
 exports.wbSign = auth.bind(wb);
 
 function auth(req, res, next) {
@@ -46,22 +46,22 @@ function auth(req, res, next) {
 
         User.find(condition, function (err, result) {
 
-            // 新用户
+            // new user
             if (result.length === 0) {
-                // 获得授权得来信息
+                //  get information after being authorized
                 This.getInfo(access, function (err, info) {
                     if (err) next(err);
 
-                    // 把信息临时保存起来
+                    // store the message temperately
                     req.session.tempInfo = info;
                     req.session.access = access;
                     return res.redirect('/user/new');
                 });
             }
 
-            // 老用户
+            // old user
             if (result.length > 0) {
-                // 刷新 token
+                // refresh the token
                 var token = User.createToken();
                 User.update(condition, {$set: {token: token}}, function (err, result) {
                     if (err) return next(err);

@@ -28,7 +28,7 @@ function getAccessToken(code, callback) {
                 return callback(new Error('get access_token error'), null);
 
             result = result.substring(result.indexOf('access_token=') + 13, result.indexOf('&'));
-            // 继续获得 openID
+            //  openID
 
             return getOpenId(result, callback);
 
@@ -44,12 +44,12 @@ function getAccessToken(code, callback) {
 }
 
 /*
- * 返回的信息
+ *  message that returned
  * access = {
  *   id: *,
  *   token: *
  * }
- * qq的接口不返回个人描述的。。。
+ *
  * */
 function getOpenId(access, callback) {
     var options = {
@@ -66,7 +66,7 @@ function getOpenId(access, callback) {
             result = result.substring(result.indexOf('openid":"') + 9, result.lastIndexOf('"'));
             if (result.indexOf('error') !== -1) return callback(new Error('get openID error'), null);
 
-            // 获得用户QQ信息需要这两个参数，微博只需要一个
+            // two parameters are needed when getting the QQ information of user. One parameter is needed when getting the micro-blog information of user.
             access = {
                 id: result,
                 token: access
@@ -85,14 +85,14 @@ function getOpenId(access, callback) {
 
 
 /*
-* 返回的信息
+* message that returned
 * info = {
 *   name: *,
 *   desc: *,
 *   avatar: *,
 *   type: 'qq'
 * }
-* qq的接口不返回个人描述的。。。
+* 
 * */
 function getInfo(access, callback) {
     var data = qs.stringify({

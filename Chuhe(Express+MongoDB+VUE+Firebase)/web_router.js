@@ -1,3 +1,4 @@
+
 var express = require('express');
 var user    = require('./controllers/user');
 var post    = require('./controllers/post');
@@ -5,35 +6,40 @@ var auth    = require('./controllers/auth');
 var router  = express.Router();
 var config  = require('./config');
 
-router.get('/', post.index);             // 主页
+router.get('/', post.index);             // index
+router.get('/home', post.home);             // home page
 router.post('/', post.post_index);       //add a post API for getting the re-render request
-router.get('/week', post.week);          // 周榜
-router.get('/month', post.month);        // 月榜
-router.get('/p/:page', post.index);      // 主页分页
-router.get('/week/p/:page', post.week);  // 周榜分页
-router.get('/month/p/:page', post.week); // 月榜分页
-router.get('/post/up', post.upload);     // 上传帖子
-router.get('/post/pass', post.pass);     // 审核帖子
-router.get('/topic/:topic', post.topic); // 某个帖子
+router.get('/week', post.week);          // ranking list of the week
+router.get('/month', post.month);        // ranking list of the month
+router.get('/p/:page', post.index);      //  pagination of the home pag
+router.get('/week/p/:page', post.week);  // pagination of weekly
+router.get('/month/p/:page', post.week); // pagination of monthly
+router.get('/post/up', post.upload);     // upload food posting
+router.get('/post/pass', post.pass);     // authorize food posting
+router.get('/topic/:topic', post.topic); // a particular food posting 
+router.get('/post/edit/:topic', post.editpost);     //edit
 
-router.get('/user/new', user.new);       // register新用户
-router.get('/user/login', user.login);   // 站内login
-router.get('/auths/:type', auth.index);   // 第三方login
-router.get('/auth/wb', auth.wbSign);     // 微博登录
-router.get('/auth/qq', auth.qqSign);     // qq登录进入
+router.get('/user/new', user.new);       // new user register
+router.get('/user/login', user.login);   // login
+router.get('/auths/:type', auth.index);   // login
+router.get('/auth/wb', auth.wbSign);     // weibo
+router.get('/auth/qq', auth.qqSign);     // qq
 router.get('/user/out', user.out);       // logout
-router.get('/user/edit', user.edit);     // 修改用户资料的页面
-router.get('/user/center', user.center); // 用户中心
-
-router.get('/user/chat/:name', user.chat); // 与某人聊天
+router.get('/user/edit', user.edit);     // page for modifying the user information
+router.get('/user/center', user.center); //user center
 
 
-router.get('/people/:name', user.index);      // 某人的主页
-router.get('/people/:name/:page', user.index);// 某人的主页的分页
-router.get('/reply/:name', user.reply);       // 某人的评论
-router.get('/reply/:name/:page', user.reply); // 某人的评论的分页
+router.get('/user/chat/:name', user.chat); //  chat with someone
+router.get('/post/buy/:name', user.buy); // buy
 
-// 这个页面主要是用于通过iframe框架的地址来传递值！
+
+router.get('/people/:name', user.index);      //  a particular user’s home page 
+router.get('/people/:name/:page', user.index);// pagination of a particular user’s home page
+router.get('/reply/:name', user.reply);       //  a particular user’s comment
+router.get('/reply/:name/:page', user.reply); // pagination of a particular user’s comment
+
+// In this page,data are transported mainly through iframe.
+
 router.use('/uploadredirect', function (req, res, next) {
 	res.send('helloWorld!');
 });

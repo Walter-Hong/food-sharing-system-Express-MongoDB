@@ -5,16 +5,16 @@ var rank = require('./rank');
 var reply = require('./reply');
 
 
-exports.login = login;                  // 站内login
-exports.createUser = createUser;             // 创建用户
-exports.edit = edit;                   // 修改用户资料
-exports.addReplyCount = addReplyCount;          // 回复数加一
-exports.addTopicCount = addTopicCount;          // 回复数加一
-exports.getUserById = getUserById;            // 通过 id 获取用户
-exports.getUserByName = getUserByName;          // 通过 用户名 获取用户
-exports.getUserByToken = getUserByToken;         // 通过 token 获取用户
-exports.getReplyByName = getReplyByName;         // 通过 用户名 获取评论
-exports.getUserTopicByName = getUserTopicByName; // 通过 用户名 获取发的帖子
+exports.login = login;                  // login
+exports.createUser = createUser;             // create user
+exports.edit = edit;                   // edit user information
+exports.addReplyCount = addReplyCount;          // add 1 to the number of reply
+exports.addTopicCount = addTopicCount;          // add 1 to the number of reply
+exports.getUserById = getUserById;            // get user by ID
+exports.getUserByName = getUserByName;          // get user by username
+exports.getUserByToken = getUserByToken;         // get user by token
+exports.getReplyByName = getReplyByName;         // get comment by username
+exports.getUserTopicByName = getUserTopicByName; // get food posting by username
 
 function getUserById(id, callback, open) {
     getUser({_id: id}, callback, open);
@@ -74,7 +74,7 @@ function getReplyByName(option, callback) {
 
 function getUser(condition, callback, open) {
     var fields = {};
-    // 传入 真 为获取所有信息
+    // if true, get all information
     if (open !== true) {
         fields = openFields;
     }

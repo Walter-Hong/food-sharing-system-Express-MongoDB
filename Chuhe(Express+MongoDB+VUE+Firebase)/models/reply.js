@@ -13,15 +13,15 @@ var ReplySchema = new Schema({
 
 ReplySchema.statics.legal = function (replyData) {
     if (replyData.content === undefined || replyData.content.length < 1 || replyData.content.length > 150) {
-        return {states: -2, hint: '评论数据有误'};
+        return {states: -2, hint: 'error on the number of data'};
     }
     if (replyData.reply_id === undefined) {
-        return {states: -2, hint: '评论人id为空'};
+        return {states: -2, hint: 'id of the user is NULL'};
     }
     if (replyData.topic_id === undefined) {
-        return {states: -2, hint: '帖子id为空'};
+        return {states: -2, hint: 'id of the posting is NULL'};
     }
-    return {states: 1, hint: '数据合法'};
+    return {states: 1, hint: 'the data is legal'};
 };
 
 ReplySchema.index({topic_id: 1});

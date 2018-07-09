@@ -1,5 +1,5 @@
 
-// 屏幕宽度
+// the width of the screen
 var clientWidth = $(window).width();
 var sideOffsetTop = '';
 var $sideFloat = {};
@@ -19,10 +19,10 @@ $(window).ready(function () {
 	var $toBottom  = $('.to-bottom');
 	var pageOffsetTop = 0;
 	$sideFloat = $('.side-float');
-	sideOffsetTop = $sideFloat.offset().top - 60; // 侧边栏到顶部的高度 减去头部的高度
+	sideOffsetTop = $sideFloat.offset().top - 60; // the length of the side without the length of the header
 
 
-	// 头部的显示和隐藏
+	//  display and hide of the header
 	function head () {
 		
 		if (clientWidth < 800) {
@@ -38,7 +38,7 @@ $(window).ready(function () {
 		}
 	}
 
-	// 侧边栏的浮动
+	// side floating
 	function side() {
 		var scrollTop = $(window).scrollTop();
 		if (scrollTop > sideOffsetTop) {
@@ -77,7 +77,7 @@ $(window).ready(function () {
 	$('#skip-bn').on('click', function () {
 		$skipTo = $('#skip-to');
 		if ($skipTo.val() === '') {
-			hint('要输入页数啊!');
+			hint('you must enter the number of page.');
 			return;
 		}
 		window.location.href = $skipTo.attr('paging-link') + $skipTo.val();
@@ -85,14 +85,14 @@ $(window).ready(function () {
 
 	$(window).scroll(function () {
 
-		pageOffsetTop = $page.offset().top + $page.height() - $sideFloat.height(); //打开和关闭评论会影响到page的高度，所以每次都重新获取下
+		pageOffsetTop = $page.offset().top + $page.height() - $sideFloat.height(); 
 		head();
 		side();
 	});
 
 	$('.share-bn').on('click', function () {
 		if (clientWidth < 800) {
-			hint('点击浏览器的选项栏就可以分享啦!');
+			hint('click on the options bar of the browser then you can share it with your friends!!');
 		}
 	});
 });

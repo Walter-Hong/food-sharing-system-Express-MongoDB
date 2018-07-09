@@ -5,12 +5,14 @@ var user = require('./user');
 var rank = require('./rank');
 var async = require('async');
 
-exports.getTopic = getTopic;    // 获得一组食物帖子
-exports.createTopic = createTopic; // 创建一条食物帖子
-exports.like = like;        // 增加一个喜欢
-exports.getTopicById = getTopicById;// 通过帖子id获取食物帖子
+exports.getTopic = getTopic;    // get a list of food posting
+exports.createTopic = createTopic; // create a food listing
+exports.deleteReply = deleteReply;
+exports.like = like;        
+exports.update = update;       
+exports.getTopicById = getTopicById;
 
-// 获得一组帖子,包含 食物帖子排行，用户排行
+// get a list of food posting including the list of food posting and the list of users
 function getTopic(option, cd) {
     async.series({
         topic: function (callback) {
@@ -30,7 +32,7 @@ function getTopic(option, cd) {
     });
 }
 
-// 通过食物帖子id获取帖子
+// get food posting by food posting ID
 function getTopicById(option, cd) {
     async.series({
         topic: function (callback) {
@@ -55,18 +57,37 @@ function getTopicById(option, cd) {
     });
 }
 
-// 创建一条食物帖子
+// create a food posting
 function createTopic(topic, callback) {
     TopicPassed.create(topic, function (err, result) {
         callback(err, result);
     });
 }
 
-// 增加一个喜欢
+
+function update(condition, callback) {
+    TopicPassed.findByIdAndUpdate(condition.id, condition, {new: true}, function (err, tank) {
+        if (err) return callback({states: -1, hint: 'server busy!'});
+        return callback({states: 1, hint: 'edit success!'});
+    });
+
+}
+
+
+function deleteReply(condition, callback) {
+    // console.log(condition['_id']);
+    TopicPassed.remove(condition, function (err) {
+        if (err) return callback({states: -1, hint: 'server busy!'});
+        return callback({states: 1, hint: 'success!'});
+    });
+
+}
+
+
 function like(condition, callback) {
     TopicPassed.find(condition, function (err, topic) {
         if (err) return callback({states: -1, hint: 'server busy!'});
-        if (topic.length > 0) return callback({states: -2, hint: '已经赞过咯'});
+        // if (topic.length > 0) return callback({states: -2, hint: '已经赞过咯'});
 
         var like_count = parseInt(Math.random() * config.like + 1);
 
@@ -82,7 +103,7 @@ function like(condition, callback) {
 }
 
 
-// 是否赞过
+
 function liked(userInfo, topic, callback) {
     var topicData = [];
     (function iteration(i) {
@@ -93,7 +114,7 @@ function liked(userInfo, topic, callback) {
 
             if (err) return callback(err, null);
             topic[i].author = user[0];
-            // 是否赞过
+            // check whether it has been added a like
             if (userInfo) {
                 topic[i].liked = topic[i].liker_id.indexOf(userInfo._id) === -1 ? 0 : 1;
             } else {
@@ -106,7 +127,7 @@ function liked(userInfo, topic, callback) {
     })(0)
 }
 
-// 获取食物帖子
+// get the food posting
 function topic(option, callback) {
     var req = option.req;
     var page = option.page;
@@ -124,7 +145,7 @@ function topic(option, callback) {
     })
 }
 
-// 食物帖子数
+// the number of food posting
 function count(option, callback) {
     TopicPassed.count(option.condition, function (err, count) {
         callback(err, count);

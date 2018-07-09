@@ -1,3 +1,4 @@
+
 var config = require('./config');
 
 var express = require('express');
@@ -9,7 +10,7 @@ var Loader = require('loader');
 var path = require('path');
 var ejs = require('ejs');
 
-var debug = require('debug')('funny:server');
+var debug = require('debug')('http');
 var app = express();
 var userMiddlewares = require('./middlewares/auth');
 var webRouter = require('./web_router');
@@ -52,7 +53,7 @@ if (config.mini_assets) {
     try {
         assets = require('./assets');
     } catch (e) {
-        console.log('开启静态资源压缩前需要使用构建脚本压缩资源 http://doxmate.cool/JacksonTian/loader/index.html#index_构建');
+        console.log('Using build scripts to compress resources before opening static resource compression http://doxmate.cool/JacksonTian/loader/index.html#index_');
         throw e;
     }
 }
@@ -76,7 +77,7 @@ app.use(function (err, req, res, next) {
 app.set('port', port);
 
 /**
- * 创建http服务
+ * create http server
  */
 var server = http.createServer(app);
 server.listen(port);
@@ -85,13 +86,13 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 /**
- * socket.io 监听
+ * socket.io listen 
  */
 io.attach(server);
 
 
 /**
- * 服务器错误事件监听
+ * Server error monitor
  */
 
 function onError(error) {
@@ -103,7 +104,7 @@ function onError(error) {
         ? 'Pipe ' + port
         : 'Port ' + port;
 
-    // 错误消息转换
+    // error message switch
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
@@ -119,7 +120,7 @@ function onError(error) {
 }
 
 /**
- * 服务开始监听事件监听
+ * sever start to monitor event
  */
 
 function onListening() {

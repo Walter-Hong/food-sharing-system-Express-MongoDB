@@ -1,8 +1,8 @@
 var User = require('../models/index').User;
 var TopicPassed = require('../models/index').TopicPassed;
 
-exports.user = user;       // 积分前5的用户
-exports.topic = topic;     // 获取食物帖子赞数排名前4
+exports.user = user;       // top 5 users ranked by score
+exports.topic = topic;     // get the first four food postings ranked by the numbers of likes
 
 
 function user(callback) {

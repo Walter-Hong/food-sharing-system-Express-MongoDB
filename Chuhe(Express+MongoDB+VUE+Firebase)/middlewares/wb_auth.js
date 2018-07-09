@@ -2,12 +2,7 @@ var https = require('https');
 var qs = require('querystring');
 var config = require('../config');
 
-/*
-  新浪微博的授权方式真奇葩
-  获得 token 的方法是 post
-  请求体需要附带在 url 上的方式提交，也就是相当于get了。。
-  如果把请求体通过 req.write(data) 提交的话，死活获取不到想要的返回
- */
+
 
 function getAccessToken(code, callback) {
 
@@ -50,14 +45,14 @@ function getAccessToken(code, callback) {
 }
 
 /*
- * 返回的信息
+ * 
  * info = {
  *   name: *,
  *   desc: *,
  *   avatar: *,
  *   type: 'wb'
  * }
- * qq的接口不返回个人描述的。。。
+ * 
  * */
 function getInfo(access, callback) {
 

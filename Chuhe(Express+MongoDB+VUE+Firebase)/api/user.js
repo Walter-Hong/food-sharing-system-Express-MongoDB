@@ -6,16 +6,16 @@ var User = require('../models').User;
 var fmdb = require('../fmdb');
 var user = fmdb.user;
 
-exports.new = newUser;   // 创建新用户
-exports.login = login;     // 站内登录
+exports.new = newUser;   // create new user
+exports.login = login;     // login
 exports.edit = edit;      // edit profile
-exports.isLogin = isLogin; // 返回login状态
-exports.uploadAvatar = uploadAvatar; // 上传头像
+exports.isLogin = isLogin; //  back to the state of login
+exports.uploadAvatar = uploadAvatar; // upload the avatar
 
-// 创建新用户
+// create new user
 function newUser(req, res, next) {
 
-    // 查看数据是否合法
+     // check whether the data is legal
     var data = req.body;
     var legal = User.legal(data);
 
@@ -46,7 +46,7 @@ function newUser(req, res, next) {
     });
 }
 
-// 站内登录
+// login
 function login(req, res, next) {
     var data = {
         loginname: req.body.loginname,
@@ -60,7 +60,7 @@ function login(req, res, next) {
     });
 }
 
-// 上传图片 上传头像使用 ifream 来传值
+//  upload the avatar using ifream
 function uploadAvatar(req, res, next) {
     var token = req.session.token;
     user.getUserByToken(token, function (err, result) {
@@ -73,7 +73,7 @@ function uploadAvatar(req, res, next) {
             fileName: result[0].loginname,
             dir: path.join(__dirname, '..', 'avatar')
         }, function (userFileName) {
-            // update头像地址
+            // update the adress of avatar
             User.update({token: token}, {$set: {avatar: userFileName}}, function (err, result) {
                 if (err) return tools.parseRedirect({states: -1, hint: 'server error', data: ''}, res);
                 var url = encodeURIComponent('/avatar/' + userFileName) + '?t=' + new Date().getTime();
@@ -100,7 +100,7 @@ function edit(req, res, next) {
     }
     if (data.wb) {
         if (data.wb.indexOf('weibo.com') === -1) {
-            return res.json({states: -2, hint: '微博链接不是这样的吧 QAQ!'});
+            return res.json({states: -2, hint: 'QAQ!'});
         }
     }
     var token = req.session.token;
@@ -110,7 +110,7 @@ function edit(req, res, next) {
     });
 }
 
-// 返回登录状态
+// back to the state of login
 function isLogin(req, res, next) {
     var token = req.session.token;
     user.getUserByToken(token, function (err, result) {

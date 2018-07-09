@@ -10,14 +10,17 @@
         <div class="menu">
             <ul class="clearfix">
                 <% if (typeof(subfield) == 'undefined') { var subfield = -1; } %>
+                <li class="hid"
+                <% if (subfield == 4) { %> class="on" <% } %> ><a href="/home">Home</a></li>
                 <li
                 <% if (subfield == 0) { %> class="on" <% } %> ><a href="/">Newest</a></li>
                 <li
                 <% if (subfield == 1) { %> class="on" <% } %> ><a href="/week">Weekly</a></li>
-                <li
+                <li class="hid"
                 <% if (subfield == 2) { %> class="on" <% } %> ><a href="/month">Monthly</a></li>
                 <li class="hid post"><a href="/post/pass"> Trial post</a></li>
                 <li class="hid post-up"><a class="post-up" href="/post/up">Create New</a></li>
+                <li class=""><a class="" target="_blank" href="https://my-project-1525706860738.firebaseapp.com">advance</a></li>
                 <li class="user">
                     <% if (user.state_login) { %>
                     <a href="/people/<%= user.info.loginname %>">

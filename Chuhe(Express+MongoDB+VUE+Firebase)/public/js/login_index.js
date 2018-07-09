@@ -4,7 +4,7 @@ $(window).ready(function () {
 		var password  = $('.password').val();
 
 		if (!loginname || !password) {
-			hint('请完整填写选项!');
+			hint('please complete the blanks!');
 			return;
 		}
 		var $This = $(this);
@@ -18,14 +18,14 @@ $(window).ready(function () {
 			success: function (msg) {
 				if (msg.states < 1) {
 					hint(msg.hint);
-					$This.html('登录');
+					$This.html('login');
 					return;
 				}
 				window.location.href = '/';
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {
-				$This.html('登录');
-				hint('服务器开了下小差! O__O');
+				$This.html('login');
+				hint('oops! the server is not in function temperately!');
 			}
 		})
 	});

@@ -5,13 +5,13 @@ var tools = require('../api/tools');
 var user = require('./user');
 var config = require('../config');
 
-exports.legal = Reply.legal;   // 检测数据合法
-exports.addReply = addReply;      // 增加一条评论
-exports.getReply = getReply;      // 获得食物帖子的评论
-exports.likeReply = likeReply;    // 给一条评论点赞
-exports.getReplyByUserId = getReplyByUserId; // 通过用户id获取评论
+exports.legal = Reply.legal;   // check whether the data is legal  
+exports.addReply = addReply;      // add a comment
+exports.getReply = getReply;      // get the comment of food posting
+exports.likeReply = likeReply;    // add a like to a comment
+exports.getReplyByUserId = getReplyByUserId; // get comment by userID
 
-// 增加一条评论
+// add one comment
 function addReply(condition, replyData, callback) {
 
     TopicPassed.find(condition, function (err, topic) {
@@ -28,7 +28,7 @@ function addReply(condition, replyData, callback) {
     });
 }
 
-// 获得食物帖子的评论
+// get the comment from the food posting
 function getReply(condition, authuser, callback) {
     Reply.find(condition).exec(function (err, reply) {
         if (err) return callback(err, null);
@@ -61,11 +61,11 @@ function getReply(condition, authuser, callback) {
     });
 }
 
-// 给一条评论点赞
+// post a like to a comment
 function likeReply(condition, callback) {
     Reply.find(condition, function (err, reply) {
         if (err) return callback({states: -1, hint: 'server busy!'});
-        if (reply.length > 0) return callback({states: -2, hint: '已经赞过咯'});
+        if (reply.length > 0) return callback({states: -2, hint: 'have done'});
 
         Reply.update({_id: condition._id}, {
             $inc: {like_count: 1},
@@ -78,7 +78,7 @@ function likeReply(condition, callback) {
     });
 }
 
-// 通过用户id获取评论
+// get comment by user ID
 function getReplyByUserId(option, callback) {
     var page = option.page;
     var limit = config.reply_limit;

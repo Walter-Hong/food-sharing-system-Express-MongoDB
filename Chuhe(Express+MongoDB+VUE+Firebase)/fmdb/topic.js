@@ -3,12 +3,12 @@ var topic_passed = require('./topic_passed');
 var config = require('../config');
 var async = require('async');
 
-exports.legal = Topic.legal;    // 验证数据
-exports.upload = upload;         // 上传食物帖子
-exports.getNotPass = getNotPass;     // 获得没有通过审核的食物帖子
-exports.allowPass = allowPass;      // 帖子通过数量加一
-exports.notPass = notPass;        // 帖子不通过数量加一
-exports.getTopicById = getTopicById; // 通过 id 获取食物帖子
+exports.legal = Topic.legal;    // check on whether the data is legal or not
+exports.upload = upload;         // upload the food posting
+exports.getNotPass = getNotPass;     // get the food posting that is not authorized
+exports.allowPass = allowPass;      // add 1 to number of authorized food posting
+exports.notPass = notPass;        // add 1 to number of non-authorized food posting
+exports.getTopicById = getTopicById; // get food posting by ID
 
 function upload(topicData, callback) {
 
@@ -63,7 +63,7 @@ function notPass(topicId, callback) {
     pass(topicId, {$inc: {notpassed_count: 1}}, callback);
 }
 
-// 食物帖子通过的数量达到设定值时
+// Checking whether the number of users authorizing the food posting is up to a specific number.
 function overBound(topic) {
     if (topic.passed_count >= config.pass_count) {
         var date = new Date();
@@ -78,11 +78,11 @@ function overBound(topic) {
             create_date: date,
             like_count: parseInt(Math.random() * config.start_like + 1)
         };
-        // 删除以前的帖子数据
+        // Delete the food posting
         Topic.remove({_id: topic._id}, function (err, result) {
         });
 
-        // 加入到通过审核的帖子集合中
+        //put the fooding posting to a set of authorized food posting
         topic_passed.createTopic(TopicData, function (err, result) {
         });
     }

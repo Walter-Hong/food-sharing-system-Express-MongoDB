@@ -6,11 +6,11 @@ $(window).ready(function () {
 		var wb = $('.wb').val();
 
 		if (description.length > 150) {
-			hint('描述有点长，只能在150个字符以内');
+			hint('the description is too long ,it should be within 150 words');
 			return;
 		}
 		if (qq.length > 100 || wb.length > 100) {
-			hint('链接长度过长');
+			hint('the link is too long');
 			return;
 		}
 		var data = 'description=' + description + '&qq=' + qq + '&wb=' + wb;

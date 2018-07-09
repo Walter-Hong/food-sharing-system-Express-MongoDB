@@ -10,10 +10,10 @@
 </div>
 
 <div class="user-hd-port clearfix">
+    <a <% if (header_on === 3) { %> class="on"<% } %> href="/post/buy/<%= author.loginname %>">activity</a>
     <a <% if (header_on === 0) { %> class="on"<% } %> href="/people/<%= author.loginname %>">post(<%= author.topic_count
     %>)</a>
     <a <% if (header_on === 1) { %> class="on"<% } %> href="/reply/<%= author.loginname %>">comment(<%=
     author.reply_count %>)</a>
-    <a <% if (header_on === 2) { %> class="on"<% } %> href="/user/chat/<%= author.loginname %>">chat online(<%=
-    author.reply_count %>)</a>
+    <a <% if (header_on === 2) { %> class="on"<% } %> href="/user/chat/<%= author.loginname %>">chat online</a>
 </div>

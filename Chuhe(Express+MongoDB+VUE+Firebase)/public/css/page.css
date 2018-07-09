@@ -390,7 +390,7 @@
     .page .post-item .port {
         width: 100%;
         padding: 0;
-        height: 35px;
+        height: 130px;
         line-height: 35px;
     }
 
@@ -399,7 +399,7 @@
     }
 
     .page .post-item .port .bar a {
-        width: 33.3%;
+        width: 24.3%;
         height: 35px;
         text-align: center;
         padding: 0;

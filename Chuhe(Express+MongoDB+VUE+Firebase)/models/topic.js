@@ -1,5 +1,6 @@
-// 待审核的帖子都存在这里
-// 当帖子的同意通过人数到了指定数量时就会把数据转移到 topic_passed 数据库里
+//  all the posting that need to be authorized are stored here
+// When the posting is authorized by more than a specific number of people,it will be transported to topic_passed database.
+
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -15,11 +16,11 @@ var TopicSchema = new Schema({
     author_id: {type: Schema.ObjectId},
     create_date: {type: Date, default: Date.now},
 
-    passed_count: {type: Number, default: 0},   // 同意通过的数量
-    notpassed_count: {type: Number, default: 0} // 不同意通过的数量
+    passed_count: {type: Number, default: 0},   // /the number of people voted pass
+    notpassed_count: {type: Number, default: 0} // /the number of people non voted pass
 });
 
-// 验证食物帖子合法性
+// check the legality of the food posting
 TopicSchema.statics.legal = function (topic) {
     if (!topic.title)
         return {states: -1, hint: 'need description!'};

@@ -10,18 +10,19 @@ var topic = fmdb.topic;
 var reply = fmdb.reply;
 var topic_passed = fmdb.topic_passed;
 
-exports.uploadImg = uploadImg;      // 上传食物帖子图片
-exports.uploadTopic = uploadTopic;    // 上传食物帖子
-exports.getNotPass = getNotPass;     // 获得没有审核的食物帖子
-exports.notPass = notPass;        // 食物帖子不通过加一
-exports.allowPass = allowPass;      // 食物帖子通过加一
-exports.addReply = addReply;       // 给一条食物帖子留言
-exports.getReply = getReply;       // 获取一条帖子的留言
-exports.like = like;           // 增加一个喜欢
-exports.likeReply = likeReply;      // 给一条评论点赞
+exports.uploadImg = uploadImg;      //  upload the pictures of food posting
+exports.uploadTopic = uploadTopic;    // upload the food posting
+exports.modify = modify;    
+exports.getNotPass = getNotPass;     // get the non-audited food posting
+exports.notPass = notPass;        // voting for not passing the food posting
+exports.allowPass = allowPass;      // voting for passing the food posting
+exports.addReply = addReply;       // add a message for the food posting
+exports.getReply = getReply;       // get a message for the food posting
+exports.like = like;           // add a like to the food posting
+exports.likeReply = likeReply;      // add a like to a comment
 exports.getNewTopic = getNewTopic;
-
-// 上传食物帖子图片
+exports.deleteReply = deleteReply;
+//upload the pictures of food posting
 function uploadImg(req, res, next) {
 
     var token = req.session.token;
@@ -30,7 +31,7 @@ function uploadImg(req, res, next) {
 
         if (result.length < 1) return tools.parseRedirect({states: -6, hint: 'please login first!', data: ''}, res);
 
-        // 先把图片放在本地然后直接上传
+         // First put the picture on the local and then upload it directly
         return upload_img.saveLocal(req, res, next, {
             maxSize: 1024 * 1024 * config.max_topic_img,
             fileName: tools.time(),
@@ -59,7 +60,7 @@ function uploadImg(req, res, next) {
     });
 }
 
-// 上传食物帖子
+// upload the food posting
 function uploadTopic(req, res, next) {
 
     var topicData = {
@@ -88,7 +89,35 @@ function uploadTopic(req, res, next) {
     });
 }
 
-// 获得没有审核的食物帖子
+
+function modify(req, res, next) {
+    var topicData = {
+        id: req.params.id,
+        title: req.body.title,
+        content: req.body.content,
+        location: req.body.location,
+        lat: req.body.lat,
+        lng: req.body.lng,
+        category: req.body.category,
+        author_id: ObjectId(req.user._id)
+    };
+
+
+    async.series([
+        function (callback) {
+            topic_passed.update(topicData, callback);
+        },
+        function (callback) {
+            user.addTopicCount(topicData.author_id, callback);
+        }
+    ], function (err, result) {
+        if (err) return res.json({states: -1, hint: 'server busy!'});
+
+        return res.json({states: 1, hint: 'Successful submission!'});
+    });
+}
+
+
 function getNotPass(req, res, next) {
 
     topic.getNotPass(function (err, topicData) {
@@ -97,7 +126,7 @@ function getNotPass(req, res, next) {
     });
 }
 
-// 食物帖子的通过数量加一
+// allowPass
 function allowPass(req, res, next) {
     topic.allowPass(ObjectId(req.body._id), function (err, result) {
         if (err) return res.json({states: -1, hint: 'server busy!'});
@@ -105,7 +134,7 @@ function allowPass(req, res, next) {
     });
 }
 
-// 帖子不通过的数量加1
+// not pass the post
 function notPass(req, res, next) {
 
     topic.notPass(ObjectId(req.body._id), function (err, result) {
@@ -114,7 +143,27 @@ function notPass(req, res, next) {
     });
 }
 
-// 给一条食物帖子留言
+//deleteReply
+function deleteReply(req, res, next) {
+    var condition = {
+        _id: req.body._id
+    };
+    // console.log(condition['_id']);
+    topic_passed.deleteReply(condition, function (msg) {
+        res.json(msg);
+    });
+}// like
+function like(req, res, next) {
+    var condition = {
+        _id: req.body._id,
+        liker_id: req.user._id
+    };
+    topic_passed.like(condition, function (msg) {
+        res.json("success");
+    });
+}
+
+// add reply
 function addReply(req, res, next) {
     var condition = {
         _id: req.body._id
@@ -124,7 +173,7 @@ function addReply(req, res, next) {
         reply_id: req.user._id,
         topic_id: req.body._id
     };
-    // 检验数据是否合法
+    
     var legal = reply.legal(replyData);
     if (legal.states < 1) {
         return res.json(legal);
@@ -142,7 +191,7 @@ function addReply(req, res, next) {
     });
 }
 
-// 获取一条食物帖子的留言
+
 function getReply(req, res, next) {
     var condition = {
         topic_id: req.body._id
@@ -153,18 +202,8 @@ function getReply(req, res, next) {
     });
 }
 
-// 增加一个喜欢
-function like(req, res, next) {
-    var condition = {
-        _id: req.body._id,
-        liker_id: req.user._id
-    };
-    topic_passed.like(condition, function (msg) {
-        res.json(msg);
-    });
-}
 
-// 给一条评论点赞
+// likeforreply
 function likeReply(req, res, next) {
     var condition = {
         _id: req.body._id,
@@ -175,11 +214,11 @@ function likeReply(req, res, next) {
     });
 }
 
-//查询
-function getNewTopic(req, res, next){
+//read
+function getNewTopic(req, res, next) {
     var option = {
         condition: {
-            title:new RegExp(req.body.text)
+            title: new RegExp(req.body.text)
         }
     };
     topic_passed.getTopic(option, function (err, item) {
@@ -191,9 +230,10 @@ function getNewTopic(req, res, next){
             user_rank: item.user_rank,
             topic_rank: item.topic_rank,
             paging: option.page,
-            paging_link: '/p', // 跳转的地址头
+            paging_link: '/p', // header
             title: config.title,
             subfield: 0
         });
         res.end();
-    });}
+    });
+}

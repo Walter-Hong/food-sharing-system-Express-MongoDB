@@ -18,11 +18,11 @@ $(window).ready(function () {
     });
 });
 
-// 主要用于登录和没登录后能做那些事情
+//  functions that can be done before login or after login
 function bind() {
     var login = window.login_state;
 
-    // 投稿点击
+    //click on uploading the posting
     $('.post-up').on('click', function () {
         if (!login) {
             window.location.href = '/user/login';
@@ -33,7 +33,7 @@ function bind() {
 }
 
 
-// 上传帖子图片
+// upload picture for food posting
 function uploadPostImg(input, img) {
     uploadAvatar(input, img, function () {
         $('#form-img').css('display', 'none');
@@ -73,7 +73,7 @@ function uploadPost(title, content, location, lat, lng, category) {
     });
 }
 
-// 上传头像
+// upload avatar
 function uploadAvatar(input, img, callback) {
     callback = callback || function () {
     };
@@ -91,7 +91,7 @@ function uploadAvatar(input, img, callback) {
                 return;
             }
             if (type.indexOf(file.type) === -1) {
-                hint('只能为 jpg, png, gif格式');
+                hint('only  jpg, png, gif');
                 return;
             }
         }
@@ -117,7 +117,7 @@ function uploadAvatar(input, img, callback) {
         url = url.substring(url.indexOf(prefix) + prefix.length);
         url = url.split('/');
         if (url.length !== 3) {
-            hint('图片上传错误');
+            hint('wrong');
             return;
         }
         url[1] = decodeURIComponent(url[1]);
@@ -133,7 +133,7 @@ function uploadAvatar(input, img, callback) {
     }
 }
 
-// 获得一组没有通过审核的帖子
+// get a list of non-authorized food posting
 function getNotPass(callback) {
     $.ajax({
         type: 'get',
@@ -147,7 +147,7 @@ function getNotPass(callback) {
     });
 }
 
-// 帖子通过加1
+// add 1 to the number of authorized food posting
 function allowPass(id, callback) {
     $.ajax({
         type: 'post',
@@ -162,7 +162,7 @@ function allowPass(id, callback) {
     })
 }
 
-// 帖子不通过加一
+//  add 1 to the number of non-authorized food posting
 function notPass(id, callback) {
     $.ajax({
         type: 'post',
@@ -177,7 +177,7 @@ function notPass(id, callback) {
     })
 }
 
-// 增加留言
+// add reply
 function addReply(id, content, callback) {
     var data = '_id=' + id + '&content=' + content;
     $.ajax({
@@ -193,7 +193,7 @@ function addReply(id, content, callback) {
     });
 }
 
-// 获取留言
+// get reply
 function getReply(topicId, callback) {
 
     var data = '_id=' + topicId;
@@ -210,7 +210,7 @@ function getReply(topicId, callback) {
     });
 }
 
-// 喜欢一条帖子
+
 function like(topicId, callback) {
     var data = '_id=' + topicId;
     $.ajax({
@@ -226,7 +226,6 @@ function like(topicId, callback) {
     });
 }
 
-// 喜欢一条评论
 function likeReply(replyId, callback) {
     var data = '_id=' + replyId;
     $.ajax({

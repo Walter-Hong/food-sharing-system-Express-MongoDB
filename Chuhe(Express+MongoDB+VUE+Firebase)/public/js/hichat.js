@@ -142,9 +142,9 @@ HiChat.prototype = {
         }, false);
         document.getElementById('notifBtn').addEventListener('click', function () {
             var config = {
-                body: '我发起了一个描述~', //正文内容
-                dir: 'auto',//文本显示方向 auto ,ltr,rtl
-                lang: 'en', //文本语言
+                body: 'I launched a description~', ///the content of the text正文内容
+                dir: 'auto',//the display direction of the text auto ,ltr,rtl
+                lang: 'en', //language of the text
                 icon: 'http://img4.imgtn.bdimg.com/it/u=196405673,1932175745&fm=23&gp=0.jpg' //图片的URL,将被用于显示通知的图标
             };
             that.socket.emit('noti', config);

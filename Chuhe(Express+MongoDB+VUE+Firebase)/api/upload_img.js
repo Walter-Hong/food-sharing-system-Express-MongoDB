@@ -6,8 +6,8 @@ var config = require('../config');
 var formidable = require('formidable');
 
 /*
-* 图片保存在本地
-* 需要传入的几个值
+* the pictures are stored at local
+* input some data
 * {
 * 	maxSize: ***,
 *   dir: ***,
@@ -70,7 +70,7 @@ exports.qiniu = function (localFile, fileName, callback) {
     var uploadToken = putPolicy.uploadToken(mac);
     var configs = new qiniu.conf.Config();
 
-    // 空间对应的机房
+    
     configs.zone = qiniu.zone.Zone_z2;
     var formUploader = new qiniu.form_up.FormUploader(configs);
     var putExtra = new qiniu.form_up.PutExtra();
